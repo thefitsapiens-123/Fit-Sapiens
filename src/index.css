@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --WHITE: #fff;
+  --FAFAFA: #fafafa;
+  --F5F5F5: #f5f5f5;
+  --GRAY: #d1d5db;
+  --PRIMARY: #b91c1c;
+  --SECONDARY: #4338ca;
+  --HEADING: #161616;
+  --BODY: #64748B;
+  --FONT: "Poppins", sans-serif;
+  --BODY-BACKGROUD: #F8FAFC;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  /* Typography - Font Sizes */
+  --font-size-h1: 2.5rem;
+  /* 40px */
+  --font-size-h2: 2rem;
+  /* 32px */
+  --font-size-h3: 1.75rem;
+  /* 28px */
+  --font-size-h4: 1.5rem;
+  /* 24px */
+  --font-size-h5: 1.25rem;
+  /* 20px */
+  --font-size-h6: 1.125rem;
+  /* 18px */
+
+  /* Typography - Line Heights */
+  --line-height-h1: 1.2;
+  /* 48px */
+  --line-height-h2: 1.25;
+  /* 40px */
+  --line-height-h3: 1.3;
+  /* 36.4px */
+  --line-height-h4: 1.35;
+  /* 32.4px */
+  --line-height-h5: 1.375;
+  /* 27.5px */
+  --line-height-h6: 1.4;
+  /* 25.2px */
+
+  /* Typography - Font Weights */
+  --font-weight-h1: 800;
+  /* Extra Bold */
+  --font-weight-h2: 700;
+  /* Bold */
+  --font-weight-h3: 700;
+  /* Bold */
+  --font-weight-h4: 600;
+  /* Semi Bold */
+  --font-weight-h5: 600;
+  /* Semi Bold */
+  --font-weight-h6: 600;
+  /* Semi Bold */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: var(--FONT);
+  font-weight: 400;
+  color: var(--BODY);
+  background-color: var(--BODY-BACKGROUD);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--FONT);
+  color: var(--HEADING);
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+  font-weight: var(--font-weight-h1);
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+  font-weight: var(--font-weight-h2);
+  letter-spacing: -0.0125em;
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+  font-weight: var(--font-weight-h3);
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-h4);
+  font-weight: var(--font-weight-h4);
+}
+
+h5 {
+  font-size: var(--font-size-h5);
+  line-height: var(--line-height-h5);
+  font-weight: var(--font-weight-h5);
+}
+
+h6 {
+  font-size: var(--font-size-h6);
+  line-height: var(--line-height-h6);
+  font-weight: var(--font-weight-h6);
+}
+
+.hero_section {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("/assets/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left center;
+}
+
+.form-container {
+  input {
+    outline: none;
+
+    &:focus {
+      border-color: var(--PRIMARY);
+    }
+  }
+}
+
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: calc(var(--font-size-h1) * 0.85);
+  }
+
+  h2 {
+    font-size: calc(var(--font-size-h2) * 0.85);
+  }
+
+  h3 {
+    font-size: calc(var(--font-size-h3) * 0.9);
+  }
+
+  h4 {
+    font-size: calc(var(--font-size-h4) * 0.9);
+  }
+
+  h5 {
+    font-size: calc(var(--font-size-h5) * 0.95);
+  }
+
+  h6 {
+    font-size: calc(var(--font-size-h6) * 0.95);
+  }
+}
