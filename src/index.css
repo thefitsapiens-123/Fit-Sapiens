@@ -126,7 +126,7 @@ h6 {
 .hero_section {
   width: 100%;
   min-height: 100vh;
-  background-image: url(".netlify/images?url=assets/background.jpg&w=1100&fm=avifq=70");
+  background-image: url(".netlify/images?url=assets/background.jpg&w=1000&fm=avif&q=70");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: left center;
