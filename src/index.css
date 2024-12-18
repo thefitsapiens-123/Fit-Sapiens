@@ -10,9 +10,9 @@
   --PRIMARY: #b91c1c;
   --SECONDARY: #4338ca;
   --HEADING: #161616;
-  --BODY: #64748B;
+  --BODY: #64748b;
   --FONT: "Poppins", sans-serif;
-  --BODY-BACKGROUD: #F8FAFC;
+  --BODY-BACKGROUD: #f8fafc;
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
@@ -142,7 +142,6 @@ h6 {
   }
 }
 
-
 /* Responsive Typography */
 @media (max-width: 768px) {
   h1 {
@@ -169,3 +168,8 @@ h6 {
     font-size: calc(var(--font-size-h6) * 0.95);
   }
 }
+
+/* nav .nav-item{
+  background-color: var(--PRIMARY);
+  colo
+} */

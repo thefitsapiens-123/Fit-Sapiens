@@ -3,7 +3,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "node_modules/preline/dist/*.js",
+    "./node_modules/preline/preline.js",
   ],
   theme: {
     screens: {
@@ -26,6 +26,8 @@ export default {
           900: "#7f1d1d",
           950: "#450a0a",
         },
+        incomplete: "#f59e0b",
+        pending: "",
       },
       container: {
         center: true,
