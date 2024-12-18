@@ -7,6 +7,7 @@ import Member from "./Routes/Member";
 import { useEffect } from "react";
 import { useLocation } from "react-router";
 import "preline/preline";
+import DashboardLayout from "./layout/Dashboard";
 function App() {
   const location = useLocation();
 
@@ -16,10 +17,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<DashboardLayout />} />
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/*" element={<Member />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
