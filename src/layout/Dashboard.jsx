@@ -2,22 +2,42 @@ import {
   CircleAlert,
   FileText,
   LayoutGrid,
+  Menu,
   MessageCircleQuestion,
   PanelRightClose,
   UserPlus,
   UserRoundPen,
+  X,
 } from "lucide-react";
-import React from "react";
-import { Link } from "react-router";
-import MemberTable from "../components/MemberTable";
+import React, { useState } from "react";
+import { Link, NavLink, Outlet, useOutletContext } from "react-router";
+import MemberStep from "../components/MemberStep";
 
 function DashboardLayout() {
-  const menu = [
-    "admin/dashboard",
-    "admin/member/1",
-    "admin/create-admin",
-    "/helth-info",
-    "/profile",
+  const [pageTitle, setPageTitle] = useState("Default Title");
+
+  const mainMenu = [
+    { path: "/admin/dashboard", icon: <LayoutGrid />, menuName: "Dashboard" },
+    {
+      path: "/admin/create-member",
+      icon: <UserPlus />,
+      menuName: "Create Member",
+    },
+    {
+      path: "/admin/member/1",
+      icon: <FileText />,
+      menuName: "Edit Member",
+    },
+    {
+      path: "/health-info",
+      icon: <MessageCircleQuestion />,
+      menuName: "Health info",
+    },
+    {
+      path: "/profile",
+      icon: <UserRoundPen />,
+      menuName: "Complete Profile",
+    },
   ];
 
   return (
@@ -36,21 +56,16 @@ function DashboardLayout() {
             </a>
             {/* End Logo */}
           </div>
-          <div className="w-full flex items-center justify-end ms-auto md:justify-between gap-x-1 md:gap-x-3">
-            <div className="hidden sm:block">
-              {/* Search Input */}
-              <h2 className="text-xl font-semibold text-gray-800 mb-0">
-                List of members
-              </h2>
-              <p className="text-sm text-gray-600">
-                Add member, edit and more.
-              </p>
-              {/* End Search Input */}
-            </div>
-            <div className="flex flex-row items-center justify-end gap-1">
-              {/* Dropdown */}
+          <div className="flex grow items-center justify-end ms-auto md:justify-between gap-x-1 md:gap-x-3">
+            <div className="flex flex-row items-center gap-1">
+              {/* Member Profile */}
               <div className="flex items-center gap-x-3">
-                <div className="grow text-right">
+                <img
+                  className="inline-block size-[45px] rounded-full"
+                  src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                  alt="Avatar"
+                />
+                <div className="grow">
                   <h6 className="block font-medium text-gray-800 mb-0">
                     Christina Bersh
                   </h6>
@@ -58,21 +73,30 @@ function DashboardLayout() {
                     <CircleAlert size={10} /> Incomplete
                   </span>
                 </div>
-                <img
-                  className="inline-block size-[45px] rounded-full"
-                  src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                  alt="Avatar"
-                />
               </div>
-
-              {/* End Dropdown */}
+              {/* End Member Profile */}
+              <div className="md:hidden">
+                <button
+                  type="button"
+                  className="ml-3 size-8 flex justify-center items-center gap-x-2   bg-primary-500 text-white rounded-lg"
+                  aria-haspopup="dialog"
+                  aria-expanded="false"
+                  aria-controls="hs-application-sidebar"
+                  aria-label="Toggle navigation"
+                  data-hs-overlay="#hs-application-sidebar"
+                >
+                  <span className="sr-only">Toggle Navigation</span>
+                  <Menu size="20" />
+                </button>
+              </div>
             </div>
           </div>
+          <MemberStep />
         </nav>
       </header>
       {/* ========== END HEADER ========== */}
       {/* ========== MAIN CONTENT ========== */}
-      <div className="-mt-px">
+      <div className="-mt-px hidden">
         {/* Breadcrumb */}
         <div className="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 lg:px-8 lg:hidden md:ps-64">
           <div className="flex items-center py-2 md:pl-6">
@@ -114,7 +138,7 @@ function DashboardLayout() {
                 className="text-sm font-semibold text-primary-800 truncate"
                 aria-current="page"
               >
-                Dashboard
+                {pageTitle}
               </li>
             </ol>
             {/* End Breadcrumb */}
@@ -125,15 +149,7 @@ function DashboardLayout() {
       {/* Sidebar */}
       <div
         id="hs-application-sidebar"
-        className="hs-overlay  [--auto-close:lg]
-  hs-overlay-open:translate-x-0
-  -translate-x-full transition-all duration-300 transform
-  w-[260px] h-full
-  hidden
-  fixed inset-y-0 start-0 z-[60]
-  bg-white border-e border-gray-200
-  md:block md:translate-x-0 md:end-auto md:bottom-0
- "
+        className="hs-overlay  [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all uration-300 transform w-[260px] h-full hidden fixed inset-y-0 start-0 z-[60] bg-white border-e border-gray-200 md:block md:translate-x-0 md:end-auto md:bottom-0"
         role="dialog"
         tabIndex={-1}
         aria-label="Sidebar"
@@ -141,13 +157,13 @@ function DashboardLayout() {
         <div className="relative flex flex-col h-full max-h-full">
           <div className="px-6 pt-4">
             {/* Logo */}
-            <a
+            <Link
               className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
-              href="#"
+              to="/"
               aria-label="Preline"
             >
               <img src="/assets/logo.svg" alt="Brand Logo" />
-            </a>
+            </Link>
             {/* End Logo */}
           </div>
           {/* Content */}
@@ -157,51 +173,17 @@ function DashboardLayout() {
               data-hs-accordion-always-open=""
             >
               <ul className="flex flex-col space-y-1 mt-4">
-                <li>
-                  <a
-                    className="nav-item flex items-center gap-x-3.5 py-4 px-8 bg-primary-50 text-primary-700 border-r-4 border-r-primary-700"
-                    href="#"
-                  >
-                    <LayoutGrid color="#b91c1c" />
-                    Dashboard
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="nav-item text-gray-800 flex transition-all items-center gap-x-3.5 py-4 px-8 focus:bg-primary-50 focus:text-primary-700 focus:border-r-4 focus:border-r-primary-700"
-                    href="#"
-                  >
-                    <UserPlus />
-                    Create Member
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="nav-item text-gray-800 flex transition-all items-center gap-x-3.5 py-4 px-8 focus:bg-primary-50 focus:text-primary-700 focus:border-r-4 focus:border-r-primary-700"
-                    href="#"
-                  >
-                    <FileText />
-                    Edit User
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="nav-item text-gray-800 flex transition-all items-center gap-x-3.5 py-4 px-8 focus:bg-primary-50 focus:text-primary-700 focus:border-r-4 focus:border-r-primary-700"
-                    href="#"
-                  >
-                    <MessageCircleQuestion />
-                    Helth Info
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="nav-item text-gray-800 flex transition-all items-center gap-x-3.5 py-4 px-8 focus:bg-primary-50 focus:text-primary-700 focus:border-r-4 focus:border-r-primary-700"
-                    href="#"
-                  >
-                    <UserRoundPen />
-                    Complete Profile
-                  </a>
-                </li>
+                {mainMenu.map((menu, index) => (
+                  <li key={index}>
+                    <NavLink
+                      className="nav-item flex items-center gap-x-3.5 py-4 px-8 hover:bg-primary-50 hover:text-primary-700 hover:border-r-4 hover:border-r-primary-700 transition-all"
+                      to={menu.path}
+                    >
+                      {menu.icon}
+                      {menu.menuName}
+                    </NavLink>
+                  </li>
+                ))}
               </ul>
             </nav>
           </div>
@@ -211,7 +193,9 @@ function DashboardLayout() {
       {/* End Sidebar */}
       {/* Content */}
       <div className="w-full md:ps-64">
-        <MemberTable />
+        <div className="max-w-[85rem] p-4 md:p-6 lg:p-14 mx-auto">
+          <Outlet context={{ setPageTitle }} />
+        </div>
       </div>
       {/* End Content */}
     </>
