@@ -7,13 +7,6 @@ import Member from "./Routes/Member";
 import { useEffect } from "react";
 import { useLocation } from "react-router";
 import "preline/preline";
-import { IStaticMethods } from "preline/preline";
-// declare global {
-//   interface Window {
-//     HSStaticMethods: IStaticMethods;
-//   }
-// }
-
 function App() {
   const location = useLocation();
 
@@ -24,9 +17,9 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/*" element={<Member />} />
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
