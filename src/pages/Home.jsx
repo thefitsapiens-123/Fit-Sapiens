@@ -49,11 +49,11 @@ function Home() {
                 </button>
                 <button
                   type="button"
-                  class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                  className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
                 >
                   <a href="/admin/dashboard">View Dashboard</a>
                   <svg
-                    class="shrink-0 size-4"
+                    className="shrink-0 size-4"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"

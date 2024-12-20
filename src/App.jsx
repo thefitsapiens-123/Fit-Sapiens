@@ -7,11 +7,11 @@ import Member from "./Routes/Member";
 import { useEffect } from "react";
 import { useLocation } from "react-router";
 import TopLoadingBar from "react-top-loading-bar";
-
 import "preline/preline";
 
 function App() {
   const location = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     window.HSStaticMethods.autoInit();

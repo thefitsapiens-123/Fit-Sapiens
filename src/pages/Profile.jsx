@@ -33,7 +33,7 @@ function Profile() {
                   />
                   <div className="flex gap-x-2">
                     <div>
-                      <form class="max-w-sm">
+                      <form className="max-w-sm">
                         <input
                           type="file"
                           name="file-input"

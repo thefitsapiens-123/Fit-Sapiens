@@ -13,6 +13,7 @@ export default {
     },
     extend: {
       colors: {
+        "regal-blue": "#b91c1c",
         primary: {
           50: "#fef2f2",
           100: "#fee2e2",
@@ -38,5 +39,5 @@ export default {
       },
     },
   },
-  plugins: [require("preline/plugin")],
+  plugins: [require("preline/plugin"), require("@tailwindcss/forms")],
 };
