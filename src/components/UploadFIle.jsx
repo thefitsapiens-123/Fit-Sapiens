@@ -1,6 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { File, Trash2, Upload } from "lucide-react";
+import { File, Forward, MailCheck, Trash2, Upload } from "lucide-react";
+import { Link } from "react-router";
+import emailjs from "emailjs-com";
+import { toast } from "react-toastify";
 
 function UploadFIle() {
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -31,6 +34,26 @@ function UploadFIle() {
     maxSize: 2 * 1024 * 1024,
     multiple: false,
   });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    emailjs
+      .sendForm(
+        "service_cxg5w7f",
+        "template_1mn4sng",
+        e.target,
+        "AwxMEDTaCcNQPzel4"
+      )
+      .then(
+        (res) => {
+          toast.success("Email Send Successfully!");
+          console.log(res);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
 
   return (
     <div className="min-h-full relative min-w-fit">
@@ -101,6 +124,39 @@ function UploadFIle() {
                   <span>100</span>%
                 </span>
               </div>
+            </div>
+          </div>
+        )}
+        {uploadedFile && (
+          <div className="bg-white rounded-xl shadow p-4 sm:p-7 max-w-sm text-center">
+            {/* Icon */}
+            <span className="mb-4 inline-flex justify-center items-center size-[62px] rounded-full border-4 border-red-50 bg-red-100 text-red-500">
+              <MailCheck />
+            </span>
+            {/* End Icon */}
+            <h3 className="mb-2 text-2xl font-semibold text-gray-800">
+              Confirmation Mail
+            </h3>
+            <p className="text-gray-500">
+              To let the user know that their status has changed to download,
+              send him a confirmation email.
+            </p>
+            <div className="mt-6 flex justify-center gap-x-4">
+              <form onSubmit={handleSubmit}>
+                <input type="hidden" name="firstName" value="Vivek" />
+                <input
+                  type="hidden"
+                  name="emailID"
+                  value="vivek.devoirdesigns@gmail.com"
+                />
+                <button
+                  type="submit"
+                  className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 focus:outline-none focus:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none"
+                >
+                  Send Mail
+                  <Forward />
+                </button>
+              </form>
             </div>
           </div>
         )}

@@ -10,12 +10,10 @@ import {
   X,
 } from "lucide-react";
 import React, { useState } from "react";
-import { Link, NavLink, Outlet, useOutletContext } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import MemberStep from "../components/MemberStep";
 
 function DashboardLayout() {
-  const [pageTitle, setPageTitle] = useState("Default Title");
-
   const mainMenu = [
     { path: "/admin/dashboard", icon: <LayoutGrid />, menuName: "Dashboard" },
     {
@@ -52,7 +50,7 @@ function DashboardLayout() {
               href="#"
               aria-label="Preline"
             >
-              <img src="/assets/logo.svg" alt="Brand Logo" />
+              <img src="/assets/main-logo.png" alt="Fit Sapiens" />
             </a>
             {/* End Logo */}
           </div>
@@ -137,9 +135,7 @@ function DashboardLayout() {
               <li
                 className="text-sm font-semibold text-primary-800 truncate"
                 aria-current="page"
-              >
-                {pageTitle}
-              </li>
+              ></li>
             </ol>
             {/* End Breadcrumb */}
           </div>
@@ -194,7 +190,7 @@ function DashboardLayout() {
       {/* Content */}
       <div className="w-full md:ps-64">
         <div className="max-w-[85rem] p-4 md:p-6 lg:p-14 mx-auto">
-          <Outlet context={{ setPageTitle }} />
+          <Outlet />
         </div>
       </div>
       {/* End Content */}

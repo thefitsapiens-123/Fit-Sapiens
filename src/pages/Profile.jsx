@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import useAuth from "../context/AuthProvider";
+import { Eye } from "lucide-react";
 
 function Profile() {
+  const [isVisible, setIsVisible] = useState(false);
+  const { user } = useAuth();
   return (
     <>
       {/* Card Section */}
@@ -28,7 +32,10 @@ function Profile() {
                 <div className="flex items-center gap-5">
                   <img
                     className="inline-block size-16 rounded-full ring-2 ring-white"
-                    src="https://preline.co/assets/img/160x160/img1.jpg"
+                    src={
+                      user.profilePhoto ||
+                      "https://preline.co/assets/img/160x160/img1.jpg"
+                    }
                     alt="Avatar"
                   />
                   <div className="flex gap-x-2">
@@ -61,8 +68,14 @@ function Profile() {
                     type="text"
                     placeholder="John"
                     name="firstName"
+                    value={user.firstName}
                   />
-                  <input type="text" placeholder="Doe" name="lastName" />
+                  <input
+                    type="text"
+                    placeholder="Doe"
+                    name="lastName"
+                    value={user.lastName}
+                  />
                 </div>
               </div>
               {/* End Col */}
@@ -79,7 +92,7 @@ function Profile() {
                 <input
                   id="af-account-email"
                   type="email"
-                  value="johndoe@example.com"
+                  value={user.email}
                   disabled
                 />
               </div>
@@ -95,12 +108,15 @@ function Profile() {
               {/* End Col */}
               <div className="sm:col-span-9">
                 <div className="space-y-2">
-                  <input
-                    id="af-account-password"
-                    type="text"
-                    value="password"
-                    disabled
-                  />
+                  <div className="relative">
+                    <input
+                      id="af-account-password"
+                      type="text"
+                      value="password"
+                      disabled
+                    />
+                    <Eye />
+                  </div>
                 </div>
               </div>
               {/* End Col */}
@@ -120,6 +136,7 @@ function Profile() {
                   id="af-account-phone"
                   type="text"
                   placeholder="+x(xxx)xxx-xx-xx"
+                  value={user.phone}
                 />
               </div>
               {/* End Col */}

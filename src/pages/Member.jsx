@@ -1,6 +1,7 @@
 import React from "react";
 import UploadFIle from "../components/UploadFIle";
 import healthQustion from "../../public/questions";
+import { Link } from "react-router";
 
 function Member() {
   return (

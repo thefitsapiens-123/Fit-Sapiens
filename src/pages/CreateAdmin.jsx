@@ -1,12 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 
 function CreateAdmin() {
-  const { setPageTitle } = useOutletContext();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    role: "member",
+  });
 
-  useEffect(() => {
-    setPageTitle("Create Member");
-  }, [setPageTitle]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
 
   return (
     <>
@@ -23,7 +33,7 @@ function CreateAdmin() {
               wordpress
             </p>
           </div>
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* Grid */}
             <div className="grid sm:grid-cols-12 gap-2 sm:gap-6">
               <div className="sm:col-span-3">
@@ -40,6 +50,9 @@ function CreateAdmin() {
                   id="af-account-email"
                   type="email"
                   placeholder="johndoe@example.com"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
               {/* End Col */}
@@ -57,6 +70,9 @@ function CreateAdmin() {
                   id="af-account-password"
                   type="text"
                   placeholder="password"
+                  value={formData.password}
+                  name="password"
+                  onChange={handleChange}
                 />
               </div>
               {/* End Col */}
@@ -69,11 +85,15 @@ function CreateAdmin() {
                 </label>
               </div>
               <div className="sm:col-span-9">
-                <select id="af-account-role">
-                  <option value="" disabled selected>
-                    Select the role
+                <select
+                  id="af-account-role"
+                  name="role"
+                  onChange={handleChange}
+                  value={formData.role}
+                >
+                  <option value="member" selected>
+                    Member
                   </option>
-                  <option value="member">Member</option>
                   <option value="admin">Admin</option>
                 </select>
               </div>
@@ -81,7 +101,7 @@ function CreateAdmin() {
             {/* End Grid */}
             <div className="mt-5 flex justify-end gap-x-2">
               <button
-                type="button"
+                type="submit"
                 className="py-3 px-5 inline-flex items-center gap-x-2 font-medium rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 focus:outline-none focus:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none"
               >
                 Create Member
