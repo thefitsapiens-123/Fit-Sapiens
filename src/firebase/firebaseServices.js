@@ -74,7 +74,7 @@ export async function updateMember(profile) {
       lastName,
       status: "SUBMIT",
       photoURL,
-      memberPDF, // new field for storing uploaded file URL
+      memberPDF: "",
     });
   } catch (error) {
     console.error("Error updating profile: ", error);
@@ -96,7 +96,7 @@ export async function uploadMedia(file, onProgress) {
         const progress = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total
         );
-        onProgress && onProgress(progress); // Pass progress to callback
+        onProgress && onProgress(progress);
       },
     });
     return response.data.secure_url;
