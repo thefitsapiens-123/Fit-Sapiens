@@ -6,6 +6,7 @@ const healthQustion = [
     type: "text",
     placeholder: "e.g., John",
     width: "half",
+    required: true,
   },
   {
     id: "lastName",
@@ -14,6 +15,7 @@ const healthQustion = [
     type: "text",
     placeholder: "e.g., Doe",
     width: "half",
+    required: true,
   },
   {
     id: "email",
@@ -22,6 +24,7 @@ const healthQustion = [
     type: "email",
     placeholder: "e.g., john.doe@example.com",
     width: "half",
+    required: true,
   },
   {
     id: "phone",
@@ -30,6 +33,7 @@ const healthQustion = [
     type: "tel",
     placeholder: "e.g., +123456789",
     width: "half",
+    required: true,
   },
   {
     id: "bio",
@@ -38,6 +42,7 @@ const healthQustion = [
     type: "textarea",
     placeholder: "Write a short bio...",
     width: "full",
+    required: true,
   },
   {
     id: "age",

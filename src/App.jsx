@@ -11,17 +11,15 @@ import { ToastContainer } from "react-toastify";
 import useAuth, { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./context/ProtectedRoutes";
 import Unauthorized from "./pages/Unauthorized";
+import Loading from "./components/loading";
 
 function App() {
   const location = useLocation();
-  const auth = useAuth();
-  const user = auth ? auth.user : null;
-  const role = auth ? auth.role : localStorage.getItem("userRole");
-  const loading = auth ? auth.role : false;
+  const { user, role, loading, status } = useAuth();
 
   useEffect(() => {
     window.HSStaticMethods.autoInit();
-  }, [location.pathname]);
+  }, [location.pathname, loading, role]);
 
   const loadingBarRef = useRef(null);
   useEffect(() => {
@@ -34,7 +32,7 @@ function App() {
   }, [location]);
 
   return (
-    <AuthProvider>
+    <>
       <ToastContainer />
       <TopLoadingBar
         ref={loadingBarRef}
@@ -42,18 +40,35 @@ function App() {
         height={3}
         fixed={true}
       />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-          <Route path="/admin/*" element={<Admin />} />
-        </Route>
-        <Route element={<ProtectedRoute allowedRoles={["member"]} />}>
-          <Route path="/*" element={<Member />} />
-        </Route>
-        <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AuthProvider>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Routes>
+          <Route
+            path="/"
+            element={
+              user ? (
+                role === "ADMIN" ? (
+                  <Navigate to="/admin/dashboard" />
+                ) : (
+                  <Navigate to="/health-info" />
+                )
+              ) : (
+                <Home />
+              )
+            }
+          />
+          <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
+            <Route path="/admin/*" element={<Admin />} />
+          </Route>
+          <Route element={<ProtectedRoute allowedRoles={["MEMBER"]} />}>
+            <Route path="/*" element={<Member />} />
+          </Route>
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      )}
+    </>
   );
 }
 

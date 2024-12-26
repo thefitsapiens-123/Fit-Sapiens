@@ -1,27 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, dataBase } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
-import useAuth from "../context/AuthProvider";
 
 function Home() {
   const navigate = useNavigate();
-  const { user, role } = useAuth();
-  const [form, setForm] = React.useState({
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
-  React.useEffect(() => {
-    if (user) {
-      if (role === "admin") {
-        navigate("/admin/dashboard");
-      } else {
-        navigate("/profile");
-      }
-    }
-  }, [user, role, navigate]);
 
   const handleChange = (e) => {
     setForm({
@@ -38,6 +28,7 @@ function Home() {
       return;
     }
 
+    setLoading(true);
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -45,21 +36,29 @@ function Home() {
         form.password
       );
       const user = userCredential.user;
+
       if (user) {
-        toast.success("You are logged in successfully");
-        if (role === "admin") {
+        // Fetch role directly after login
+        const roleDoc = await getDoc(doc(dataBase, "users", user.uid));
+        const userRole = roleDoc.data()?.role || "MEMBER";
+
+        console.log(userRole);
+
+        if (userRole === "MEMBER") {
           navigate("/admin/dashboard");
         } else {
-          navigate("/profile");
+          navigate("/health-info");
         }
       }
     } catch (error) {
-      if (error.code === "auth/user-not-found") {
-        toast.error("User not found");
-      } else if (error.code === "auth/wrong-password") {
-        toast.error("Invalid password");
+      if (error.code === "auth/invalid-credential") {
+        toast.error("Invalid Email or Password");
+      } else {
+        toast.error("Login failed. Please try again.");
       }
       console.log("Error logging in: ", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -117,8 +116,9 @@ function Home() {
               <button
                 type="submit"
                 className="w-full bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 transition duration-300"
+                disabled={loading}
               >
-                Login
+                {loading ? "Logging in..." : "Login"}
               </button>
             </form>
           </div>

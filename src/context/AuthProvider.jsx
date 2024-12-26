@@ -1,6 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { createContext, useContext, useState, useEffect } from "react";
-import { dataBase, auth } from "../firebase/firebaseConfig"; // Ensure auth is imported
+import { dataBase, auth } from "../firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 
 export const AuthContext = createContext(null);
@@ -8,28 +8,38 @@ export const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [role, setRole] = useState(localStorage.getItem("userRole") || null);
+  const [role, setRole] = useState(null);
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
-      setLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        setUser(firebaseUser);
+        try {
+          const roleDoc = await getDoc(
+            doc(dataBase, "users", firebaseUser.uid)
+          );
+          const userRole = roleDoc.data()?.role || "MEMBER";
+          setStatus(roleDoc.data()?.status || "INACTIVE");
 
-      if (user) {
-        const roleDoc = await getDoc(doc(dataBase, "users", user.uid));
-        const userRole = roleDoc.data()?.role || "member";
-        setRole(userRole);
-        localStorage.setItem("userRole", userRole);
+          setRole(userRole);
+        } catch (error) {
+          console.error("Failed to fetch role:", error);
+          setRole("MEMBER"); // Default role if fetching fails
+        }
       } else {
+        setUser(null);
         setRole(null);
-        localStorage.removeItem("userRole");
+        setStatus(null);
       }
+      setLoading(false);
     });
+
     return () => unsubscribe();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, role, loading }}>
+    <AuthContext.Provider value={{ user, role, loading, status }}>
       {children}
     </AuthContext.Provider>
   );

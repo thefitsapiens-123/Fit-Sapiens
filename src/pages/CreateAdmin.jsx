@@ -1,11 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useOutletContext } from "react-router";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { dataBase } from "../firebase/firebaseConfig";
+import { useNavigate } from "react-router";
 
 function CreateAdmin() {
+  const naviage = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    role: "member",
+    role: "MEMBER",
+    status: "INACTIVE",
   });
 
   const handleChange = (e) => {
@@ -13,9 +23,47 @@ function CreateAdmin() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    const auth = getAuth();
+    const adminUser = auth.currentUser;
+    const adminEmail = adminUser.email;
+    const adminPassword = prompt(
+      "Please enter your admin password to proceed:"
+    );
+
+    try {
+      await auth.signOut();
+      // Create new user
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+      // Add user data to Firestore
+      await setDoc(doc(dataBase, "users", userCredential.user.uid), {
+        email: formData.email,
+        role: formData.role,
+        createdAt: new Date().toISOString(),
+        status: "INACTIVE",
+        password: formData.password,
+      });
+      // Re-authenticate the admin user
+      await signInWithEmailAndPassword(auth, adminEmail, adminPassword);
+      naviage("/admin/dashboard");
+      // Reset form
+      setFormData({
+        email: "",
+        password: "",
+        role: "MEMBER",
+        status: "INACTIVE",
+      });
+
+      toast.success("Member created successfully");
+    } catch (error) {
+      console.error("Error creating user:", error);
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -91,10 +139,8 @@ function CreateAdmin() {
                   onChange={handleChange}
                   value={formData.role}
                 >
-                  <option value="member" selected>
-                    Member
-                  </option>
-                  <option value="admin">Admin</option>
+                  <option value="MEMBER">Member</option>
+                  <option value="ADMIN">Admin</option>
                 </select>
               </div>
             </div>

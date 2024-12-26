@@ -1,44 +1,80 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UploadFIle from "../components/UploadFIle";
-import healthQustion from "../../public/questions";
-import { Link } from "react-router";
+import { useParams } from "react-router";
+import { getUserDoc } from "../firebase/firebaseServices";
+import healthQustion from "../questions/questions";
 
 function Member() {
+  const { id } = useParams();
+  const [userData, setUserData] = useState(null);
+  const [formData, setFormData] = useState([]);
+
+  useEffect(() => {
+    async function getCurrentUser(id) {
+      const data = await getUserDoc(id);
+      setUserData(data);
+
+      if (data?.healthInfo) {
+        const fields = Object.entries(data.healthInfo).map(([key, value]) => {
+          const question = healthQustion.find((q) => q.id === key);
+          return {
+            label: question?.label || key,
+            value: value,
+          };
+        });
+        setFormData(fields);
+      }
+    }
+    getCurrentUser(id);
+  }, [id]);
+
   return (
-    <>
-      <div className="flex max-w-max gap-4">
-        <div className="bg-white rounded-xl shadow p-4 sm:p-7">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {healthQustion.map((input) => (
-              <div className="col-span-1 md:col-span-2" key={input.id}>
-                <p>{input.id}</p>
-              </div>
-            ))}
-          </div>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum
-            ullam perspiciatis amet aperiam dolor aspernatur, consectetur illo.
-            Molestiae modi laboriosam sed laudantium enim. Sunt, necessitatibus,
-            labore odio ratione recusandae dignissimos officiis nulla quo dolor
-            temporibus at placeat quidem fugiat est a incidunt natus, illo
-            similique? Labore ut nulla ad nihil debitis quod eum eaque incidunt,
-            doloremque libero eligendi quae maiores tempore mollitia consectetur
-            fugiat voluptatum minus? Neque odit laudantium labore unde eveniet
-            adipisci, explicabo voluptate quisquam quia ut blanditiis delectus
-            quos voluptatum possimus fugiat porro consequatur facilis iste
-            molestias quae, fuga cum, ratione officia aspernatur! Perspiciatis,
-            hic. Velit ullam, reprehenderit ea voluptatibus ut quibusdam dolores
-            aperiam omnis nihil quam eos natus vitae necessitatibus facere
-            similique dolorem beatae dicta? Fugiat commodi aperiam ducimus iusto
-            soluta tempora illum excepturi nemo harum autem qui officiis omnis,
-            pariatur necessitatibus, impedit officia eum assumenda debitis
-            suscipit modi, corporis cum. Voluptate ratione quas nihil quibusdam?
-            In.
+    <div className="grid grid-cols-[60%,40%] gap-4">
+      <div className="mx-auto bg-white rounded-lg shadow-lg p-6">
+        <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+          Member Details
+        </h1>
+        <div>
+          <h2 className="text-xl font-medium text-gray-700">
+            User: {userData?.displayName || "No Name Available"}
+          </h2>
+          <p className="text-sm text-gray-500">
+            Email: {userData?.email || "No Email Available"}
           </p>
         </div>
-        <UploadFIle />
+        <div>
+          <h2 className="text-xl font-medium text-gray-700">Health Info</h2>
+          <div className="mt-4 space-y-4">
+            {formData.length > 0 ? (
+              formData.map((field, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col md:flex-row md:items-center justify-between border-b pb-2"
+                >
+                  <span className="text-gray-600 font-medium">
+                    {field.label}:
+                  </span>
+                  <span className="text-gray-800">
+                    {Array.isArray(field.value)
+                      ? field.value.join(", ")
+                      : field.value || "Not Provided"}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">No health information available.</p>
+            )}
+          </div>
+        </div>
       </div>
-    </>
+      <div className="mt-6">
+        <UploadFIle
+          email={userData?.email}
+          id={id}
+          displayName={userData?.displayName}
+        />
+      </div>
+    </div>
   );
 }
 

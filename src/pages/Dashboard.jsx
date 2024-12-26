@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import MemberTable from "../components/MemberTable";
-import { useOutletContext } from "react-router";
+import MembersList from "../components/MembersList";
 
 function Dashboard() {
   return (
     <>
-      <MemberTable />
+      <MembersList />
     </>
   );
 }

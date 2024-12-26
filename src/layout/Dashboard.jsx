@@ -1,5 +1,5 @@
 import {
-  CircleAlert,
+  CircleArrowOutUpLeft,
   FileText,
   LayoutGrid,
   Menu,
@@ -7,69 +7,85 @@ import {
   PanelRightClose,
   UserPlus,
   UserRoundPen,
-  X,
 } from "lucide-react";
 import React, { useState } from "react";
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import MemberStep from "../components/MemberStep";
+import { logout } from "../firebase/firebaseServices";
+import { toast } from "react-toastify";
+import Status from "../components/Status";
+import useAuth from "../context/AuthProvider";
 
 function DashboardLayout() {
+  const { user, status, role } = useAuth();
+  const navigate = useNavigate();
   const mainMenu = [
-    { path: "/admin/dashboard", icon: <LayoutGrid />, menuName: "Dashboard" },
+    {
+      path: "/admin/dashboard",
+      icon: <LayoutGrid size={20} />,
+      menuName: "Dashboard",
+      role: "ADMIN",
+    },
     {
       path: "/admin/create-member",
-      icon: <UserPlus />,
+      icon: <UserPlus size={20} />,
       menuName: "Create Member",
+      role: "ADMIN",
     },
     {
       path: "/admin/member/1",
-      icon: <FileText />,
+      icon: <FileText size={20} />,
       menuName: "Edit Member",
+      role: "ADMIN",
     },
     {
       path: "/health-info",
-      icon: <MessageCircleQuestion />,
+      icon: <MessageCircleQuestion size={20} />,
       menuName: "Health info",
+      role: "MEMBER",
     },
     {
       path: "/profile",
-      icon: <UserRoundPen />,
+      icon: <UserRoundPen size={20} />,
       menuName: "Complete Profile",
+      role: "MEMBER",
     },
   ];
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success("You are logged out successfully");
+      navigate("/");
+    } catch (error) {
+      console.log("Error logging out: ", error);
+    }
+  };
 
   return (
     <>
       {/* ========== HEADER ========== */}
       <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 md:ps-[260px]">
         <nav className="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
-          <div className="me-5 md:me-0 md:hidden">
-            {/* Logo */}
-            <a
-              className="flex-none rounded-md text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
-              href="#"
-              aria-label="Preline"
-            >
-              <img src="/assets/main-logo.png" alt="Fit Sapiens" />
-            </a>
-            {/* End Logo */}
-          </div>
-          <div className="flex grow items-center justify-end ms-auto md:justify-between gap-x-1 md:gap-x-3">
+          <div className="flex grow items-center justify-between ms-auto md:justify-between gap-x-1 md:gap-x-3">
             <div className="flex flex-row items-center gap-1">
               {/* Member Profile */}
               <div className="flex items-center gap-x-3">
                 <img
                   className="inline-block size-[45px] rounded-full"
-                  src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                  src={
+                    user.photoURL || "https://avatar.iran.liara.run/public/1"
+                  }
                   alt="Avatar"
                 />
+
                 <div className="grow">
                   <h6 className="block font-medium text-gray-800 mb-0">
-                    Christina Bersh
+                    {role === "ADMIN"
+                      ? "Admin"
+                      : user.displayName || "Update Profile"}
                   </h6>
-                  <span className="inline-flex items-center gap-1 p-1 px-2 text-yellow-700 bg-yellow-200 text-xs rounded-full">
-                    <CircleAlert size={10} /> Incomplete
-                  </span>
+                  {!role.includes("ADMIN") && <Status status={status} />}
                 </div>
               </div>
               {/* End Member Profile */}
@@ -169,17 +185,28 @@ function DashboardLayout() {
               data-hs-accordion-always-open=""
             >
               <ul className="flex flex-col space-y-1 mt-4">
-                {mainMenu.map((menu, index) => (
-                  <li key={index}>
-                    <NavLink
-                      className="nav-item flex items-center gap-x-3.5 py-4 px-8 hover:bg-primary-50 hover:text-primary-700 hover:border-r-4 hover:border-r-primary-700 transition-all"
-                      to={menu.path}
-                    >
-                      {menu.icon}
-                      {menu.menuName}
-                    </NavLink>
-                  </li>
-                ))}
+                {mainMenu.map((menu, index) => {
+                  if (role == menu.role) {
+                    return (
+                      <li key={index}>
+                        <NavLink
+                          className="nav-item flex items-center gap-x-3.5 py-4 px-8 hover:bg-primary-50 hover:text-primary-700 hover:border-r-4 hover:border-r-primary-700 transition-all"
+                          to={menu.path}
+                        >
+                          {menu.icon}
+                          {menu.menuName}
+                        </NavLink>
+                      </li>
+                    );
+                  }
+                })}
+                <button
+                  className="nav-item flex items-center gap-x-3.5 py-4 px-8 hover:bg-primary-50 hover:text-primary-700 hover:border-r-4 hover:border-r-primary-700 transition-all"
+                  onClick={handleLogout}
+                >
+                  <CircleArrowOutUpLeft size={18} />
+                  Logout
+                </button>
               </ul>
             </nav>
           </div>
