@@ -11,11 +11,11 @@ import { ToastContainer } from "react-toastify";
 import useAuth, { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./context/ProtectedRoutes";
 import Unauthorized from "./pages/Unauthorized";
-import Loading from "./components/loading";
+import Loading from "./components/Loading";
 
 function App() {
   const location = useLocation();
-  const { user, role, loading, status } = useAuth();
+  const { user, role, loading } = useAuth();
 
   useEffect(() => {
     window.HSStaticMethods.autoInit();
