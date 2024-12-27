@@ -3,9 +3,9 @@ import { useDropzone } from "react-dropzone";
 import { File, Forward, MailCheck, Trash2, Upload } from "lucide-react";
 import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
-import { uploadMedia } from "../firebase/firebaseServices";
 import { doc, updateDoc } from "firebase/firestore";
 import { dataBase } from "../firebase/firebaseConfig"; // Add this import
+import { uploadMedia } from "../firebase/cloudnary";
 
 function UploadFIle({ email, id, displayName }) {
   const [uploadedFile, setUploadedFile] = useState(null);

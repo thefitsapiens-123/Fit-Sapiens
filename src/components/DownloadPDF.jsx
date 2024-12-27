@@ -2,6 +2,7 @@ import { Download, FileCheck, Eye } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { getUserDoc } from "../firebase/firebaseServices"; // Ensure this imports your Firebase function correctly
 import { auth } from "../firebase/firebaseConfig"; // Ensure correct Firebase auth import
+import { Link } from "react-router";
 
 function DownloadPDF() {
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -41,7 +42,7 @@ function DownloadPDF() {
         <div className="mt-6 flex justify-center gap-x-4">
           {pdfUrl ? (
             <>
-              <a
+              <Link
                 href={pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -49,15 +50,15 @@ function DownloadPDF() {
               >
                 <Eye />
                 Preview
-              </a>
-              <a
+              </Link>
+              <Link
                 href={pdfUrl}
                 download
                 className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
               >
                 <Download />
                 Download
-              </a>
+              </Link>
             </>
           ) : (
             <button

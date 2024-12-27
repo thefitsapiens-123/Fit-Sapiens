@@ -10,9 +10,10 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
+  query,
   updateDoc,
 } from "firebase/firestore";
-import axios from "axios";
 
 // login by email and password
 export async function loginByEmailPass(email, password) {
@@ -82,30 +83,6 @@ export async function updateMember(profile) {
   }
 }
 
-// upload media file on cloudnary
-export async function uploadMedia(file, onProgress) {
-  const url = "https://api.cloudinary.com/v1_1/dddtsdlk0/image/upload";
-
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("upload_preset", "members");
-
-  try {
-    const response = await axios.post(url, formData, {
-      onUploadProgress: (progressEvent) => {
-        const progress = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
-        );
-        onProgress && onProgress(progress);
-      },
-    });
-    return response.data.secure_url;
-  } catch (error) {
-    console.error("Error uploading image: ", error.message);
-    throw error;
-  }
-}
-
 // get current user doc from firestore
 export async function getUserDoc(userId) {
   try {
@@ -121,10 +98,16 @@ export async function getUserDoc(userId) {
 // get all users from firestore
 export async function getUsers() {
   try {
-    const querySnapshot = await getDocs(collection(dataBase, "users"));
+    const usersQuery = query(
+      collection(dataBase, "users"),
+      orderBy("createdAt", "desc")
+    );
+    const querySnapshot = await getDocs(usersQuery);
+
     const data = querySnapshot.docs.map((doc) => {
       return { ...doc.data(), id: doc.id };
     });
+
     return data;
   } catch (error) {
     console.error("Error getting users: ", error);

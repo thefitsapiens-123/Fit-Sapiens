@@ -202,7 +202,11 @@ function DashboardLayout() {
                 })}
                 <button
                   className="nav-item flex items-center gap-x-3.5 py-4 px-8 hover:bg-primary-50 hover:text-primary-700 hover:border-r-4 hover:border-r-primary-700 transition-all"
-                  onClick={handleLogout}
+                  // onClick={handleLogout}
+                  aria-haspopup="dialog"
+                  aria-expanded="false"
+                  aria-controls="hs-danger-alert"
+                  data-hs-overlay="#hs-danger-alert"
                 >
                   <CircleArrowOutUpLeft size={18} />
                   Logout

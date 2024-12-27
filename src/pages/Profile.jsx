@@ -2,12 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import useAuth from "../context/AuthProvider";
 import { Eye, Star, User } from "lucide-react";
-import {
-  getUserDoc,
-  updateMember,
-  uploadMedia,
-} from "../firebase/firebaseServices";
+import { getUserDoc, updateMember } from "../firebase/firebaseServices";
 import { toast } from "react-toastify";
+import { uploadMedia } from "../firebase/cloudnary";
 
 function Profile() {
   const { user, status } = useAuth();
@@ -47,8 +44,8 @@ function Profile() {
 
   const handleUpload = async (e) => {
     const file = e.target.files[0];
-    if (file && file.size > 1000000) {
-      toast.error("File size should be less than 1MB");
+    if (file && file.size > 10 * 1024 * 1024) {
+      toast.error("File size should be less than 10MB");
       return;
     }
     try {

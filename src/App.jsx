@@ -12,6 +12,7 @@ import useAuth, { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./context/ProtectedRoutes";
 import Unauthorized from "./pages/Unauthorized";
 import Loading from "./components/Loading";
+import LogoutConfirm from "./components/popups/LogoutConfirm";
 
 function App() {
   const location = useLocation();

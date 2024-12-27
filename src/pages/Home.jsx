@@ -4,9 +4,12 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, dataBase } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
+import { Eye, EyeOff } from "lucide-react";
+import LogoutConfirm from "../components/popups/LogoutConfirm";
 
 function Home() {
   const navigate = useNavigate();
+  const [active, setActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -103,15 +106,24 @@ function Home() {
                 >
                   Password
                 </label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="password"
-                  className="transition-all w-full mt-1 p-3 border border-gray-300 rounded-lg"
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
-                />
+                <div className="relative">
+                  <input
+                    type={active ? "text" : "password"}
+                    id="password"
+                    placeholder="password"
+                    className="transition-all w-full mt-1 p-3 border border-gray-300 rounded-lg"
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md"
+                    onClick={() => setActive(!active)}
+                  >
+                    {active ? <Eye /> : <EyeOff />}
+                  </button>
+                </div>
               </div>
               <button
                 type="submit"
