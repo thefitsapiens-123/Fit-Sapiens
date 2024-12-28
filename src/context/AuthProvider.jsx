@@ -13,19 +13,27 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      setLoading(true);
       if (firebaseUser) {
         setUser(firebaseUser);
         try {
           const roleDoc = await getDoc(
             doc(dataBase, "users", firebaseUser.uid)
           );
-          const userRole = roleDoc.data()?.role || "MEMBER";
-          setStatus(roleDoc.data()?.status || "INACTIVE");
 
-          setRole(userRole);
+          if (roleDoc.exists()) {
+            const userData = roleDoc.data();
+            setRole(userData?.role || "MEMBER");
+            setStatus(userData?.status || "INACTIVE");
+          } else {
+            console.error("User document not found");
+            setRole("MEMBER");
+            setStatus("INACTIVE");
+          }
         } catch (error) {
           console.error("Failed to fetch role:", error);
-          setRole("MEMBER"); // Default role if fetching fails
+          setRole("MEMBER");
+          setStatus("INACTIVE");
         }
       } else {
         setUser(null);
@@ -38,12 +46,22 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  return (
-    <AuthContext.Provider value={{ user, role, loading, status }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = {
+    user,
+    role,
+    loading,
+    status,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-const useAuth = () => useContext(AuthContext);
+const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
+
 export default useAuth;

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, dataBase } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
 import { Eye, EyeOff } from "lucide-react";
-import LogoutConfirm from "../components/popups/LogoutConfirm";
+import Loading from "../components/Loading";
 
 function Home() {
   const navigate = useNavigate();
@@ -45,13 +45,13 @@ function Home() {
         const roleDoc = await getDoc(doc(dataBase, "users", user.uid));
         const userRole = roleDoc.data()?.role || "MEMBER";
 
-        console.log(userRole);
-
-        if (userRole === "MEMBER") {
-          navigate("/admin/dashboard");
-        } else {
-          navigate("/health-info");
-        }
+        setTimeout(() => {
+          if (userRole === "MEMBER") {
+            navigate("/admin/dashboard");
+          } else {
+            navigate("/health-info");
+          }
+        }, 1000);
       }
     } catch (error) {
       if (error.code === "auth/invalid-credential") {
@@ -136,6 +136,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <Loading />
     </main>
   );
 }

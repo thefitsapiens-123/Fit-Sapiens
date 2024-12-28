@@ -1,8 +1,11 @@
 import React from "react";
-import { Edit, Eye } from "lucide-react";
+import { Edit, Eye, Trash2 } from "lucide-react";
 import Status from "./Status";
 import { Link } from "react-router";
 import healthQustion from "../questions/questions";
+import { toast } from "react-toastify";
+import { deleteDoc, doc } from "firebase/firestore";
+import { dataBase } from "../firebase/firebaseConfig";
 
 function MemberTable({
   serial,
@@ -14,6 +17,22 @@ function MemberTable({
   date,
   image,
 }) {
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete the user ${name}?`
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await deleteDoc(doc(dataBase, "users", id));
+      toast.success("User deleted successfully.");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      toast.error("Failed to delete user. Please try again.");
+    }
+  };
+
   return (
     <>
       <tr>
@@ -62,6 +81,12 @@ function MemberTable({
             >
               <Eye size={20} />
             </Link>
+            <button
+              className="transition-all hover:bg-primary-50 inline-flex w-10 h-10 rounded-full items-center justify-center text-gray-600 hover:text-gray-800"
+              onClick={handleDelete}
+            >
+              <Trash2 size={20} color="#b91c1c" />
+            </button>
           </div>
         </td>
       </tr>

@@ -6,7 +6,7 @@ import Loading from "../components/Loading";
 const ProtectedRoute = ({ allowedRoles }) => {
   const { user, role, loading } = useAuth();
 
-  if (loading) {
+  if (loading || !role) {
     return <Loading />;
   }
 
@@ -18,14 +18,12 @@ const ProtectedRoute = ({ allowedRoles }) => {
     return <Outlet />;
   }
 
-  // Redirect to the appropriate dashboard based on role
-  if (role === "ADMIN") {
-    return <Navigate to="/admin/dashboard" />;
-  } else if (role === "MEMBER") {
-    return <Navigate to="/health-info" />;
-  }
-
-  return <Navigate to="/unauthorized" />;
+  // Redirect based on role
+  return role === "ADMIN" ? (
+    <Navigate to="/admin/dashboard" />
+  ) : (
+    <Navigate to="/health-info" />
+  );
 };
 
 export default ProtectedRoute;

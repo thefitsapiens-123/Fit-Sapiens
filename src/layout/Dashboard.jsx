@@ -11,13 +11,13 @@ import {
 import React, { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import MemberStep from "../components/MemberStep";
-import { logout } from "../firebase/firebaseServices";
-import { toast } from "react-toastify";
 import Status from "../components/Status";
 import useAuth from "../context/AuthProvider";
+import LogoutPop from "../components/popups/LogoutConfirm";
 
 function DashboardLayout() {
   const { user, status, role } = useAuth();
+  const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
   const mainMenu = [
     {
@@ -51,16 +51,6 @@ function DashboardLayout() {
       role: "MEMBER",
     },
   ];
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      toast.success("You are logged out successfully");
-      navigate("/");
-    } catch (error) {
-      console.log("Error logging out: ", error);
-    }
-  };
 
   return (
     <>
@@ -202,11 +192,7 @@ function DashboardLayout() {
                 })}
                 <button
                   className="nav-item flex items-center gap-x-3.5 py-4 px-8 hover:bg-primary-50 hover:text-primary-700 hover:border-r-4 hover:border-r-primary-700 transition-all"
-                  // onClick={handleLogout}
-                  aria-haspopup="dialog"
-                  aria-expanded="false"
-                  aria-controls="hs-danger-alert"
-                  data-hs-overlay="#hs-danger-alert"
+                  onClick={() => setIsActive(!isActive)}
                 >
                   <CircleArrowOutUpLeft size={18} />
                   Logout
@@ -225,6 +211,7 @@ function DashboardLayout() {
         </div>
       </div>
       {/* End Content */}
+      {isActive && <LogoutPop />}
     </>
   );
 }

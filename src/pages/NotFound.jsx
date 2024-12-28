@@ -1,3 +1,4 @@
+import { Map } from "lucide-react";
 import React from "react";
 
 function NotFound() {

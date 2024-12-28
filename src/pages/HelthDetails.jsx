@@ -7,6 +7,7 @@ import HealthForm from "../components/HealthForm";
 
 function HelthDetails() {
   const { status } = useAuth();
+  console.log(status);
 
   switch (status) {
     case "DOWNLOAD":

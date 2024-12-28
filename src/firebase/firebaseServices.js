@@ -14,6 +14,7 @@ import {
   query,
   updateDoc,
 } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 // login by email and password
 export async function loginByEmailPass(email, password) {
@@ -33,7 +34,10 @@ export async function loginByEmailPass(email, password) {
 // Logout
 export async function logout() {
   try {
-    await signOut(auth);
+    const res = await signOut(auth);
+    if (res.ok) {
+      toast.success("You are logged out successfully");
+    }
   } catch (error) {
     console.log("Error logging out: ", error);
   }

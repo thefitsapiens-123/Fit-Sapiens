@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
-  getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { dataBase } from "../firebase/firebaseConfig";
+import { auth, dataBase } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router";
 
 function CreateAdmin() {
   const naviage = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,44 +26,88 @@ function CreateAdmin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const auth = getAuth();
+
+    if (!formData.email || !formData.password) {
+      toast.error("Email or Password are required");
+      return;
+    }
+
+    setIsLoading(true);
+    localStorage.setItem("loading", true);
+
+    // Store admin credentials
     const adminUser = auth.currentUser;
     const adminEmail = adminUser.email;
     const adminPassword = prompt(
       "Please enter your admin password to proceed:"
     );
 
+    if (!adminPassword) {
+      setIsLoading(false);
+      localStorage.removeItem("loading");
+      return;
+    }
+
     try {
-      await auth.signOut();
+      // Check if email exists
+      const signInMethods = await fetchSignInMethodsForEmail(
+        auth,
+        formData.email
+      );
+      if (signInMethods.length > 0) {
+        toast.error("Email already in use");
+        setIsLoading(false);
+        localStorage.removeItem("loading");
+        return;
+      }
+
       // Create new user
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         formData.email,
         formData.password
       );
+
+      // Sign out temporarily
+      await auth.signOut();
+
       // Add user data to Firestore
       await setDoc(doc(dataBase, "users", userCredential.user.uid), {
         email: formData.email,
         role: formData.role,
         createdAt: new Date().toISOString(),
         status: "INACTIVE",
-        password: formData.password,
       });
-      // Re-authenticate the admin user
+
+      // Re-authenticate admin
       await signInWithEmailAndPassword(auth, adminEmail, adminPassword);
-      naviage("/admin/dashboard");
+
       // Reset form
       setFormData({
         email: "",
         password: "",
         role: "MEMBER",
-        status: "INACTIVE",
       });
 
       toast.success("Member created successfully");
     } catch (error) {
       console.error("Error creating user:", error);
-      toast.error(error.message);
+      toast.error(
+        error.code === "auth/email-already-in-use"
+          ? "Email already in use"
+          : "Error creating user"
+      );
+      // Ensure admin is logged back in even if there's an error
+      try {
+        await signInWithEmailAndPassword(auth, adminEmail, adminPassword);
+      } catch (loginError) {
+        toast.error("Error logging back in as admin. Please log in again.");
+      }
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => {
+        localStorage.removeItem("loading");
+      }, 1000);
     }
   };
 
@@ -150,7 +195,7 @@ function CreateAdmin() {
                 type="submit"
                 className="py-3 px-5 inline-flex items-center gap-x-2 font-medium rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 focus:outline-none focus:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none"
               >
-                Create Member
+                {isLoading ? "Create..." : "Create Member"}
               </button>
             </div>
           </form>

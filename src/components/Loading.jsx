@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Loading() {
+  const [adminCreate, setAdminCreate] = useState(false);
+
+  useEffect(() => {
+    setAdminCreate(localStorage.getItem("loading"));
+  }, [
+    window.location.pathname === "/",
+    window.location.pathname === "/health-info",
+  ]);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-purple-50 flex items-center justify-center p-4">
+    <div
+      className={`min-h-screen bg-gradient-to-br from-primary-50 to-purple-50 flex items-center justify-center p-4 ${
+        adminCreate ? "loadingActive" : ""
+      }`}
+      id="main_loading"
+    >
       <div className="text-center">
         <img
           src="/assets/main-logo.png"

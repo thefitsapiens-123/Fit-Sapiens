@@ -8,11 +8,9 @@ import TopLoadingBar from "react-top-loading-bar";
 import "react-toastify/dist/ReactToastify.css";
 import "preline/preline";
 import { ToastContainer } from "react-toastify";
-import useAuth, { AuthProvider } from "./context/AuthProvider";
+import useAuth from "./context/AuthProvider";
 import ProtectedRoute from "./context/ProtectedRoutes";
-import Unauthorized from "./pages/Unauthorized";
 import Loading from "./components/Loading";
-import LogoutConfirm from "./components/popups/LogoutConfirm";
 
 function App() {
   const location = useLocation();
@@ -49,7 +47,9 @@ function App() {
             path="/"
             element={
               user ? (
-                role === "ADMIN" ? (
+                loading || !role ? (
+                  <Loading />
+                ) : role === "ADMIN" ? (
                   <Navigate to="/admin/dashboard" />
                 ) : (
                   <Navigate to="/health-info" />
@@ -65,7 +65,6 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={["MEMBER"]} />}>
             <Route path="/*" element={<Member />} />
           </Route>
-          <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}

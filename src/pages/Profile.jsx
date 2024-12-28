@@ -69,7 +69,7 @@ function Profile() {
     try {
       await updateMember(formData);
       toast.success("Profile updated successfully");
-      navigate("/health-info");
+      window.location.reload();
     } catch (error) {
       console.error("Error updating profile: ", error);
       toast.error("Failed to update profile");
