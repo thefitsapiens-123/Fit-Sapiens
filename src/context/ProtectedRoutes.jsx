@@ -6,12 +6,12 @@ import Loading from "../components/Loading";
 const ProtectedRoute = ({ allowedRoles }) => {
   const { user, role, loading } = useAuth();
 
-  if (loading || !role) {
-    return <Loading />;
-  }
-
   if (!user) {
     return <Navigate to="/" />;
+  }
+
+  if (loading || !role) {
+    return <Loading />;
   }
 
   if (allowedRoles.includes(role)) {
