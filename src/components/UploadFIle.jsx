@@ -51,7 +51,7 @@ function UploadFIle({ email, id, displayName }) {
     try {
       const userDocRef = doc(dataBase, "users", id);
       await updateDoc(userDocRef, {
-        memberPDF: uploadedFile.url, // new merge new data
+        memberPDF: uploadedFile.url,
         status: "DOWNLOAD",
       });
       toast.success("User status updated successfully!");

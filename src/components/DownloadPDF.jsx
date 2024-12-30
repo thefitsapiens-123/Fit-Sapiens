@@ -1,7 +1,7 @@
 import { Download, FileCheck, Eye } from "lucide-react";
 import React, { useState, useEffect } from "react";
-import { getUserDoc } from "../firebase/firebaseServices"; // Ensure this imports your Firebase function correctly
-import { auth } from "../firebase/firebaseConfig"; // Ensure correct Firebase auth import
+import { getUserDoc } from "../firebase/firebaseServices";
+import { auth } from "../firebase/firebaseConfig";
 import { Link } from "react-router";
 
 function DownloadPDF() {
@@ -20,9 +20,32 @@ function DownloadPDF() {
     console.log(pdfUrl);
   }, [auth.currentUser.uid]);
 
+  const handleDownload = async () => {
+    const response = await fetch(pdfUrl);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "Fit-Sapiens.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
-    <div className="w-full flex items-center justify-center">
-      <div className="bg-white rounded-xl shadow p-4 sm:p-7 max-w-sm text-center">
+    <div className="w-full flex gap-4">
+      <div className="h-full w-full">
+        <iframe
+          src={pdfUrl}
+          width="100%"
+          height="500px"
+          frameborder="0"
+        ></iframe>
+      </div>
+      <div className="bg-white rounded-xl shadow p-4 sm:p-7 max-w-sm text-center h-max">
         {/* Icon */}
         <span className="mb-4 inline-flex justify-center items-center size-[62px] rounded-full border-4 border-green-50 bg-green-100 text-green-500">
           <FileCheck />
@@ -43,7 +66,7 @@ function DownloadPDF() {
           {pdfUrl ? (
             <>
               <Link
-                href={pdfUrl}
+                to={pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300 bg-gray-50 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
@@ -51,14 +74,13 @@ function DownloadPDF() {
                 <Eye />
                 Preview
               </Link>
-              <Link
-                href={pdfUrl}
-                download
+              <button
+                onClick={handleDownload}
                 className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
               >
                 <Download />
                 Download
-              </Link>
+              </button>
             </>
           ) : (
             <button
