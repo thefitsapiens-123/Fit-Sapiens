@@ -69,7 +69,7 @@ function Profile() {
     try {
       await updateMember(formData);
       toast.success("Profile updated successfully");
-      window.location.reload();
+      window.location.href = "/health-info";
     } catch (error) {
       console.error("Error updating profile: ", error);
       toast.error("Failed to update profile");
@@ -109,17 +109,19 @@ function Profile() {
                     }
                     alt="Avatar"
                   />
-                  <div className="flex gap-x-2">
-                    <div className="max-w-sm">
-                      <input
-                        type="file"
-                        name="photoURL"
-                        className="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-100 file:border-0 file:me-4 file:py-3 file:px-4"
-                        onChange={handleUpload}
-                        accept="image/*"
-                      />
+                  {!formData.photoURL && (
+                    <div className="flex gap-x-2">
+                      <div className="max-w-sm">
+                        <input
+                          type="file"
+                          name="photoURL"
+                          className="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-100 file:border-0 file:me-4 file:py-3 file:px-4"
+                          onChange={handleUpload}
+                          accept="image/*"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
               {/* End Col */}
@@ -146,6 +148,7 @@ function Profile() {
                     value={formData.displayName}
                     onChange={handleChange}
                     required
+                    autocomplete="off"
                   />
                   <input
                     type="text"

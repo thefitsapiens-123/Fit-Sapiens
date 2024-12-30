@@ -164,7 +164,7 @@ function DashboardLayout() {
               to="/"
               aria-label="Preline"
             >
-              <img src="/assets/logo.svg" alt="Brand Logo" />
+              <img src="/assets/main-logo.png" alt="Brand Logo" />
             </Link>
             {/* End Logo */}
           </div>

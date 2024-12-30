@@ -38,12 +38,13 @@ function DownloadPDF() {
   return (
     <div className="w-full flex gap-4">
       <div className="h-full w-full">
-        <iframe
-          src={pdfUrl}
+        <object
+          class="pdf"
+          data={pdfUrl}
           width="100%"
-          height="500px"
-          frameborder="0"
-        ></iframe>
+          height="600"
+          type="application/pdf"
+        ></object>
       </div>
       <div className="bg-white rounded-xl shadow p-4 sm:p-7 max-w-sm text-center h-max">
         {/* Icon */}
