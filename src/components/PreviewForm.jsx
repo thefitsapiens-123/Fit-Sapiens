@@ -1,19 +1,11 @@
 import React from "react";
 import { formSections } from "../questions/healthQuery";
 
-function PreviewForm({ data }) {
+function PreviewForm({ data, width = "2" }) {
   return (
     <>
-      <div className="w-full mx-auto p-6 space-y-8 hidden">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-semibold text-gray-900 mb-2">
-            Form Submission Summary
-          </h1>
-          <p className="text-gray-600">
-            Thank you for completing the questionnaire
-          </p>
-        </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="w-full mx-auto space-y-8">
+        <div className={`grid grid-cols-1 gap-4 md:grid-cols-${width}`}>
           {formSections.map((section, index) => (
             <div
               key={index}

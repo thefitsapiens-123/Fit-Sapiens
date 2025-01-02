@@ -1,42 +1,34 @@
 import React, { useState } from "react";
 import { Send } from "lucide-react";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { auth, dataBase } from "../firebase/firebaseConfig";
-import useAuth from "../context/AuthProvider";
 import { toast } from "react-toastify";
-import healthQustion from "../questions/questions";
 import { formSections } from "../questions/healthQuery";
 import renderField from "./renderField";
 import PreviewForm from "./PreviewForm";
 
 function HealthForm() {
   const [formData, setFormData] = useState({});
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!formData) {
-  //     toast.error("Please fill all the fields");
-  //     return;
-  //   }
-
-  //   try {
-  //     const userDocRef = doc(dataBase, "users", auth.currentUser.uid);
-  //     await updateDoc(userDocRef, {
-  //       healthInfo: formData,
-  //       status: "PENDING",
-  //     }).then(() => {
-  //       toast.success("Health information submitted successfully");
-  //       window.location.reload();
-  //     });
-  //   } catch (error) {
-  //     console.log("Error submitting health information: ", error);
-  //     toast.error("Error submitting health information");
-  //   }
-  // };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    if (!formData) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+
+    try {
+      const userDocRef = doc(dataBase, "users", auth.currentUser.uid);
+      await updateDoc(userDocRef, {
+        healthInfo: formData,
+        status: "PENDING",
+      }).then(() => {
+        toast.success("Health information submitted successfully");
+        window.location.reload();
+      });
+    } catch (error) {
+      console.log("Error submitting health information: ", error);
+      toast.error("Error submitting health information");
+    }
   };
 
   return (
@@ -94,7 +86,6 @@ function HealthForm() {
             </div>
           </form>
         </div>
-        <PreviewForm data={formData} />
       </div>
     </>
   );

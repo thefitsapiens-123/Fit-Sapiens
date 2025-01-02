@@ -32,6 +32,11 @@ function CreateAdmin() {
       return;
     }
 
+    if (formData.password.length < 6) {
+      toast.error("Password should be at least 6 characters");
+      return;
+    }
+
     setIsLoading(true);
     localStorage.setItem("loading", true);
 

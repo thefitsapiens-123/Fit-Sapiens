@@ -11,6 +11,8 @@ function Home() {
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [adminCreate, setAdminCreate] = useState(false);
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -64,6 +66,13 @@ function Home() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    setAdminCreate(localStorage.getItem("loading"));
+  }, [
+    window.location.pathname === "/",
+    window.location.pathname === "/health-info",
+  ]);
 
   return (
     <main className="hero_section h-screen w-full">
@@ -136,7 +145,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <Loading />
+      {adminCreate && <Loading adminCreate={adminCreate} />}
     </main>
   );
 }

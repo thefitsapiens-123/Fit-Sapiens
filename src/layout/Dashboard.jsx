@@ -33,12 +33,6 @@ function DashboardLayout() {
       role: "ADMIN",
     },
     {
-      path: "/admin/member/1",
-      icon: <FileText size={20} />,
-      menuName: "Edit Member",
-      role: "ADMIN",
-    },
-    {
       path: "/health-info",
       icon: <MessageCircleQuestion size={20} />,
       menuName: "Health info",

@@ -168,10 +168,10 @@ select {
 .hero_section {
   width: 100%;
   min-height: 100vh;
-  background-image: url("/assets/background.jpg");
+  background-image: url("/assets/background.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: left center;
+  background-position: bottom center;
 }
 
 .form-container {
@@ -198,8 +198,6 @@ select {
   height: 100%;
   z-index: 99999 !important;
 }
-
-
 
 /* Responsive Typography */
 @media (max-width: 768px) {

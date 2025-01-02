@@ -1,7 +1,22 @@
 import { Ellipsis } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import PreviewForm from "./PreviewForm";
+import { auth } from "../firebase/firebaseConfig";
+import { getUserDoc } from "../firebase/firebaseServices";
 
 function Pending() {
+  const [formData, setFormData] = useState({});
+  const currentUserId = auth.currentUser.uid;
+
+  useEffect(() => {
+    async function getFromData() {
+      await getUserDoc(currentUserId).then((data) =>
+        setFormData(data.healthInfo)
+      );
+    }
+    getFromData();
+  }, []);
+
   return (
     <>
       <div className="w-full flex items-center justify-center">
@@ -23,6 +38,7 @@ function Pending() {
           </p>
         </div>
       </div>
+      <PreviewForm data={formData} />
     </>
   );
 }

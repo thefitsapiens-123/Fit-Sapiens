@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Edit, Eye, Trash2 } from "lucide-react";
 import Status from "./Status";
 import { Link } from "react-router";
 import healthQustion from "../questions/questions";
 import { toast } from "react-toastify";
-import { deleteDoc, doc } from "firebase/firestore";
-import { dataBase } from "../firebase/firebaseConfig";
 
 function MemberTable({
   serial,
@@ -17,19 +15,32 @@ function MemberTable({
   date,
   image,
 }) {
+  const [loading, setLoading] = useState(false);
   const handleDelete = async () => {
+    setLoading(true);
+    const baseUrl = `https://firebase-admin-sdk-bw3w.onrender.com/api/users/${id}`;
     const confirmDelete = window.confirm(
-      `Are you sure you want to delete the user ${name}?`
+      `Are you sure you want to delete the member?`
     );
-    if (!confirmDelete) return;
+    if (!confirmDelete) {
+      setLoading(false);
+      return;
+    }
 
     try {
-      await deleteDoc(doc(dataBase, "users", id));
-      toast.success("User deleted successfully.");
+      await fetch(baseUrl, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       window.location.reload();
+      toast.success("User deleted successfully");
     } catch (error) {
       console.error("Error deleting user:", error);
       toast.error("Failed to delete user. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -84,8 +95,19 @@ function MemberTable({
             <button
               className="transition-all hover:bg-primary-50 inline-flex w-10 h-10 rounded-full items-center justify-center text-gray-600 hover:text-gray-800"
               onClick={handleDelete}
+              disabled={loading ? true : false}
             >
-              <Trash2 size={20} color="#b91c1c" />
+              {loading ? (
+                <div
+                  className="animate-spin inline-block size-3 border-[3px] border-current border-t-transparent text-primary-600 rounded-full"
+                  role="status"
+                  aria-label="loading"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+              ) : (
+                <Trash2 size={20} color="#b91c1c" />
+              )}
             </button>
           </div>
         </td>

@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function Loading() {
-  const [adminCreate, setAdminCreate] = useState(false);
-
-  useEffect(() => {
-    setAdminCreate(localStorage.getItem("loading"));
-  }, [
-    window.location.pathname === "/",
-    window.location.pathname === "/health-info",
-  ]);
-
+function Loading({ adminCreate }) {
   return (
     <div
       className={`min-h-screen bg-gradient-to-br from-primary-50 to-purple-50 flex items-center justify-center p-4 ${
