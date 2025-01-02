@@ -39,7 +39,7 @@ function DownloadPDF() {
     <div className="w-full flex gap-4">
       <div className="h-full w-full">
         <object
-          class="pdf"
+          className="pdf"
           data={pdfUrl}
           width="100%"
           height="600"
