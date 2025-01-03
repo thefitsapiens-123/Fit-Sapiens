@@ -14,6 +14,7 @@ function Member() {
   const [userData, setUserData] = useState(null);
   const [formData, setFormData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const allowedStatus = ["PENDING", "DOWNLOAD"];
 
   const handleDelete = useCallback(async () => {
     if (!window.confirm("Are you sure you want to delete the file?")) return;
@@ -37,7 +38,12 @@ function Member() {
     async function getCurrentUser(id) {
       const data = await getUserDoc(id);
       setUserData(data);
-
+      console.log(data.status);
+      if (allowedStatus.includes(data?.status?.toUpperCase())) {
+        console.log("allow");
+      } else {
+        console.log("not allow");
+      }
       if (data?.healthInfo) {
         setFormData(data.healthInfo);
       }
@@ -79,7 +85,7 @@ function Member() {
               <embed src={userData.memberPDF} width="100%" height="100%" />
             </div>
           </div>
-        ) : (
+        ) : allowedStatus.includes(userData?.status?.toUpperCase()) ? (
           <>
             <div className="mt-6">
               <UploadFIle
@@ -89,6 +95,10 @@ function Member() {
               />
             </div>
           </>
+        ) : (
+          <h1 className="text-2xl font-semibold text-gray-800 mt-2">
+            Not allow for Complete Profile or Complete the form status member
+          </h1>
         )}
       </div>
     </>

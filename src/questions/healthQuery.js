@@ -83,7 +83,7 @@ export const formSections = [
           "Improved flexibility",
           "Pain or injury management",
           "General health and fitness",
-          "Other (please specify)",
+          "Other",
         ],
         required: true,
         width: "full",
@@ -312,7 +312,7 @@ export const formSections = [
           "Nutrition guidance",
           "Regular check-ins",
           "Progress tracking",
-          "Other (please specify)",
+          "Other",
         ],
         required: true,
         width: "full",
@@ -332,6 +332,192 @@ export const formSections = [
         type: "textarea",
         required: false,
         placeholder: "Describe challenges",
+        width: "full",
+      },
+    ],
+  },
+  {
+    title: "Expectations from Online Training",
+    fields: [
+      {
+        name: "trainingExpectations",
+        label: "What do you expect from your online personal training program?",
+        type: "checkbox",
+        options: [
+          "Personalized workout plans",
+          "Nutrition guidance",
+          "Regular check-ins",
+          "Progress tracking",
+          "Other",
+        ],
+        required: true,
+        width: "full",
+      },
+      {
+        name: "communicationPreference",
+        label: "How would you like to communicate with your trainer?",
+        type: "text",
+        required: true,
+        placeholder: "e.g., video calls, chat, email",
+        width: "full",
+      },
+      {
+        name: "challenges",
+        label:
+          "What challenges do you think might affect your fitness journey?",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., time constraints, motivation, etc.",
+        width: "full",
+      },
+    ],
+  },
+  {
+    title: "Lifestyle & Routine",
+    fields: [
+      {
+        name: "typicalDay",
+        label:
+          "What does a typical day look like for you? (Work hours, physical activities, etc.)",
+        type: "textarea",
+        required: true,
+        placeholder: "e.g., 9 AM - 5 PM work, 1-hour gym in the evening",
+        width: "full",
+      },
+      {
+        name: "sleepHours",
+        label: "How many hours of sleep do you get on average per night?",
+        type: "text",
+        required: true,
+        placeholder: "e.g., 6-8 hours",
+        width: "half",
+      },
+      {
+        name: "sleepSchedule",
+        label:
+          "What is your usual sleep schedule? (Time you go to bed and wake up)",
+        type: "text",
+        required: true,
+        placeholder: "e.g., 10 PM - 6 AM",
+        width: "half",
+      },
+      {
+        name: "wakeUpFeeling",
+        label:
+          "How do you usually feel when you wake up? (Refreshed, tired, etc.)",
+        type: "text",
+        required: true,
+        placeholder: "e.g., refreshed, tired, groggy",
+        width: "full",
+      },
+      {
+        name: "exerciseFrequency",
+        label:
+          "How often do you exercise or engage in physical activity? (Type and frequency)",
+        type: "textarea",
+        required: true,
+        placeholder: "e.g., 3 days a week, strength training, yoga",
+        width: "full",
+      },
+      {
+        name: "workoutChallenges",
+        label:
+          "Do you face any challenges with maintaining a consistent workout routine?",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., lack of time, injuries",
+        width: "full",
+      },
+      {
+        name: "sedentaryLifestyle",
+        label: "Do you have a sedentary job or lifestyle?",
+        type: "radio",
+        options: ["Yes", "No"],
+        required: true,
+        width: "full",
+      },
+    ],
+  },
+  {
+    title: "Dietary Preferences & Habits",
+    fields: [
+      {
+        name: "dietType",
+        label:
+          "Are you vegetarian, non-vegetarian, vegan, or follow another specific diet?",
+        type: "radio",
+        options: ["Vegetarian", "Non-Vegetarian", "Vegan", "Other"],
+        required: true,
+        width: "full",
+      },
+      {
+        name: "foodPreferences",
+        label:
+          "What types of foods do you like or dislike? (e.g., spicy, sweet, savory)",
+        type: "textarea",
+        required: true,
+        placeholder: "e.g., love sweet foods, dislike spicy",
+        width: "full",
+      },
+      {
+        name: "typicalMeals",
+        label:
+          "What are your typical meals during the day? (Breakfast, lunch, dinner, snacks)",
+        type: "textarea",
+        required: true,
+        placeholder:
+          "e.g., eggs for breakfast, salad for lunch, pasta for dinner",
+        width: "full",
+      },
+      {
+        name: "eatingOut",
+        label: "Do you often eat out or cook at home?",
+        type: "radio",
+        options: ["Eat out", "Cook at home"],
+        required: true,
+        width: "full",
+      },
+      {
+        name: "mealFrequency",
+        label: "Do you prefer smaller, frequent meals or larger meals?",
+        type: "radio",
+        options: ["Smaller, frequent meals", "Larger meals"],
+        required: true,
+        width: "full",
+      },
+      {
+        name: "dietarySupplements",
+        label:
+          "Do you consume any dietary supplements? (Protein, vitamins, etc.)",
+        type: "text",
+        required: false,
+        placeholder: "e.g., whey protein, multivitamins",
+        width: "full",
+      },
+      {
+        name: "foodAllergies",
+        label:
+          "Do you have any food allergies or intolerances? (e.g., gluten, dairy)",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., lactose intolerant",
+        width: "full",
+      },
+      {
+        name: "digestiveIssues",
+        label:
+          "Do you have any digestive issues? (Indigestion, bloating, acid reflux, etc.)",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., frequent bloating",
+        width: "full",
+      },
+      {
+        name: "alcoholOrSmoke",
+        label: "Do you drink alcohol or smoke? (If yes, how often?)",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., drink occasionally, no smoking",
         width: "full",
       },
     ],
