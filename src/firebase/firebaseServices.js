@@ -34,10 +34,7 @@ export async function loginByEmailPass(email, password) {
 // Logout
 export async function logout() {
   try {
-    const res = await signOut(auth);
-    if (res.ok) {
-      toast.success("You are logged out successfully");
-    }
+    await signOut(auth);
   } catch (error) {
     console.log("Error logging out: ", error);
   }

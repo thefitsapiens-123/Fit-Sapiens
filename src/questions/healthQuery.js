@@ -337,42 +337,6 @@ export const formSections = [
     ],
   },
   {
-    title: "Expectations from Online Training",
-    fields: [
-      {
-        name: "trainingExpectations",
-        label: "What do you expect from your online personal training program?",
-        type: "checkbox",
-        options: [
-          "Personalized workout plans",
-          "Nutrition guidance",
-          "Regular check-ins",
-          "Progress tracking",
-          "Other",
-        ],
-        required: true,
-        width: "full",
-      },
-      {
-        name: "communicationPreference",
-        label: "How would you like to communicate with your trainer?",
-        type: "text",
-        required: true,
-        placeholder: "e.g., video calls, chat, email",
-        width: "full",
-      },
-      {
-        name: "challenges",
-        label:
-          "What challenges do you think might affect your fitness journey?",
-        type: "textarea",
-        required: false,
-        placeholder: "e.g., time constraints, motivation, etc.",
-        width: "full",
-      },
-    ],
-  },
-  {
     title: "Lifestyle & Routine",
     fields: [
       {
@@ -380,34 +344,34 @@ export const formSections = [
         label:
           "What does a typical day look like for you? (Work hours, physical activities, etc.)",
         type: "textarea",
-        required: true,
-        placeholder: "e.g., 9 AM - 5 PM work, 1-hour gym in the evening",
+        required: false,
+        placeholder: "Describe your daily routine",
         width: "full",
       },
       {
         name: "sleepHours",
         label: "How many hours of sleep do you get on average per night?",
-        type: "text",
-        required: true,
-        placeholder: "e.g., 6-8 hours",
-        width: "half",
+        type: "number",
+        required: false,
+        placeholder: "e.g., 7",
+        width: "full",
       },
       {
         name: "sleepSchedule",
         label:
           "What is your usual sleep schedule? (Time you go to bed and wake up)",
         type: "text",
-        required: true,
-        placeholder: "e.g., 10 PM - 6 AM",
-        width: "half",
+        required: false,
+        placeholder: "e.g., 10:00 PM to 6:00 AM",
+        width: "full",
       },
       {
-        name: "wakeUpFeeling",
+        name: "wakeUpFeel",
         label:
           "How do you usually feel when you wake up? (Refreshed, tired, etc.)",
         type: "text",
-        required: true,
-        placeholder: "e.g., refreshed, tired, groggy",
+        required: false,
+        placeholder: "e.g., Refreshed",
         width: "full",
       },
       {
@@ -415,25 +379,25 @@ export const formSections = [
         label:
           "How often do you exercise or engage in physical activity? (Type and frequency)",
         type: "textarea",
-        required: true,
-        placeholder: "e.g., 3 days a week, strength training, yoga",
+        required: false,
+        placeholder: "e.g., Jogging 3 times a week",
         width: "full",
       },
       {
         name: "workoutChallenges",
         label:
-          "Do you face any challenges with maintaining a consistent workout routine?",
+          "Do you face any challenges with maintaining a consistent workout routine? (If yes, explain)",
         type: "textarea",
         required: false,
-        placeholder: "e.g., lack of time, injuries",
+        placeholder: "Describe challenges if any",
         width: "full",
       },
       {
         name: "sedentaryLifestyle",
-        label: "Do you have a sedentary job or lifestyle?",
-        type: "radio",
-        options: ["Yes", "No"],
-        required: true,
+        label: "Do you have a sedentary job or lifestyle? (Yes/No)",
+        type: "text",
+        required: false,
+        placeholder: "Yes or No",
         width: "full",
       },
     ],
@@ -445,18 +409,18 @@ export const formSections = [
         name: "dietType",
         label:
           "Are you vegetarian, non-vegetarian, vegan, or follow another specific diet?",
-        type: "radio",
-        options: ["Vegetarian", "Non-Vegetarian", "Vegan", "Other"],
+        type: "text",
         required: true,
+        placeholder: "e.g., Vegetarian",
         width: "full",
       },
       {
-        name: "foodPreferences",
+        name: "foodLikesDislikes",
         label:
           "What types of foods do you like or dislike? (e.g., spicy, sweet, savory)",
         type: "textarea",
-        required: true,
-        placeholder: "e.g., love sweet foods, dislike spicy",
+        required: false,
+        placeholder: "Describe likes and dislikes",
         width: "full",
       },
       {
@@ -464,25 +428,24 @@ export const formSections = [
         label:
           "What are your typical meals during the day? (Breakfast, lunch, dinner, snacks)",
         type: "textarea",
-        required: true,
-        placeholder:
-          "e.g., eggs for breakfast, salad for lunch, pasta for dinner",
+        required: false,
+        placeholder: "e.g., Breakfast: Oats, Lunch: Rice and vegetables",
         width: "full",
       },
       {
-        name: "eatingOut",
+        name: "mealPreparation",
         label: "Do you often eat out or cook at home?",
-        type: "radio",
-        options: ["Eat out", "Cook at home"],
-        required: true,
+        type: "text",
+        required: false,
+        placeholder: "e.g., Cook at home",
         width: "full",
       },
       {
-        name: "mealFrequency",
+        name: "mealPreference",
         label: "Do you prefer smaller, frequent meals or larger meals?",
-        type: "radio",
-        options: ["Smaller, frequent meals", "Larger meals"],
-        required: true,
+        type: "text",
+        required: false,
+        placeholder: "e.g., Smaller frequent meals",
         width: "full",
       },
       {
@@ -491,35 +454,219 @@ export const formSections = [
           "Do you consume any dietary supplements? (Protein, vitamins, etc.)",
         type: "text",
         required: false,
-        placeholder: "e.g., whey protein, multivitamins",
+        placeholder: "e.g., Protein powder",
         width: "full",
       },
       {
         name: "foodAllergies",
         label:
           "Do you have any food allergies or intolerances? (e.g., gluten, dairy)",
-        type: "textarea",
+        type: "text",
         required: false,
-        placeholder: "e.g., lactose intolerant",
+        placeholder: "e.g., Lactose intolerant",
         width: "full",
       },
       {
         name: "digestiveIssues",
         label:
           "Do you have any digestive issues? (Indigestion, bloating, acid reflux, etc.)",
-        type: "textarea",
+        type: "text",
         required: false,
-        placeholder: "e.g., frequent bloating",
+        placeholder: "Describe any issues",
         width: "full",
       },
       {
-        name: "alcoholOrSmoke",
+        name: "mealsPerDay",
+        label: "How many meals and snacks do you usually eat in a day?",
+        type: "number",
+        required: false,
+        placeholder: "e.g., 3 meals, 2 snacks",
+        width: "full",
+      },
+      {
+        name: "alcoholSmoking",
         label: "Do you drink alcohol or smoke? (If yes, how often?)",
         type: "textarea",
         required: false,
-        placeholder: "e.g., drink occasionally, no smoking",
+        placeholder: "Describe frequency",
+        width: "full",
+      },
+    ],
+  },
+  {
+    title: "Mindset & Consistency",
+    fields: [
+      {
+        name: "pastDietPlans",
+        label:
+          "Have you followed any diet plans in the past? (If yes, which ones?)",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., Keto, Intermittent Fasting",
+        width: "full",
+      },
+      {
+        name: "dietPlanFeedback",
+        label: "What worked or didn’t work for you with previous diet plans?",
+        type: "textarea",
+        required: false,
+        placeholder: "Describe your experience",
+        width: "full",
+      },
+      {
+        name: "consistencyChallenges",
+        label:
+          "What challenges do you face in staying consistent with a diet or training plan?",
+        type: "textarea",
+        required: false,
+        placeholder: "Describe challenges if any",
+        width: "full",
+      },
+      {
+        name: "preferredDietPlan",
+        label:
+          "What kind of diet plan do you think you could follow consistently for long-term success?",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., Balanced with occasional treats",
+        width: "full",
+      },
+      {
+        name: "dietingApproach",
+        label:
+          "Do you believe in strict dieting, or would you prefer a flexible approach?",
+        type: "text",
+        required: false,
+        placeholder: "e.g., Flexible approach",
+        width: "full",
+      },
+    ],
+  },
+  {
+    title: "Health & Medical Information",
+    fields: [
+      {
+        name: "currentMedicalConditions",
+        label:
+          "Do you have any current or past medical conditions? (Diabetes, high blood pressure, etc.)",
+        type: "textarea",
+        required: false,
+        placeholder: "List conditions if any",
+        width: "full",
+      },
+      {
+        name: "currentMedications",
+        label: "Are you currently taking any medications or supplements?",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., Multivitamins, Blood pressure meds",
+        width: "full",
+      },
+      {
+        name: "familyHealthHistory",
+        label:
+          "Do you have any family history of health conditions that might affect your diet? (e.g., heart disease, obesity)",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., Family history of diabetes",
+        width: "full",
+      },
+      {
+        name: "pastInjuries",
+        label: "Have you experienced any injuries or surgeries in the past?",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., Knee surgery in 2020",
+        width: "full",
+      },
+      {
+        name: "digestiveMetabolicIssues",
+        label:
+          "Do you have any issues with digestion, metabolism, or energy levels?",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., Low energy in afternoons",
+        width: "full",
+      },
+      {
+        name: "specificHealthGoals",
+        label:
+          "Are there any specific health goals you are working on? (e.g., weight loss, managing blood sugar)",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., Weight loss of 10kg",
+        width: "full",
+      },
+    ],
+  },
+  {
+    title: "Goals & Expectations",
+    fields: [
+      {
+        name: "mainGoals",
+        label:
+          "What are your main health and fitness goals? (Weight loss, muscle gain, improve energy, etc.)",
+        type: "textarea",
+        required: true,
+        placeholder: "e.g., Muscle gain and increased stamina",
+        width: "full",
+      },
+      {
+        name: "goalTimeline",
+        label: "What timeline do you have in mind for achieving your goals?",
+        type: "text",
+        required: false,
+        placeholder: "e.g., 6 months",
+        width: "full",
+      },
+      {
+        name: "balancedDietDefinition",
+        label: "How do you define a balanced and sustainable diet?",
+        type: "textarea",
+        required: false,
+        placeholder: "Describe your perspective",
+        width: "full",
+      },
+      {
+        name: "shortLongTermGoals",
+        label:
+          "Do you have any short-term or long-term weight or fitness goals?",
+        type: "textarea",
+        required: false,
+        placeholder: "e.g., Short-term: Lose 5kg; Long-term: Build muscle",
+        width: "full",
+      },
+      {
+        name: "motivationScale",
+        label:
+          "How motivated are you to make dietary changes? (On a scale of 1-10)",
+        type: "number",
+        required: true,
+        placeholder: "e.g., 8",
+        width: "full",
+      },
+    ],
+  },
+  {
+    title: "Additional Information",
+    fields: [
+      {
+        name: "additionalInfo",
+        label:
+          "Is there anything else you would like us to know that may help us create the right nutrition plan for you?",
+        type: "textarea",
+        required: false,
+        placeholder: "Add any additional details here",
         width: "full",
       },
     ],
   },
 ];
+
+const fields = formSections.map((field) => {
+  return field.fields.length;
+});
+
+export const totalQuestions = fields.reduce((acc, item) => {
+  return acc + item;
+}, 0);

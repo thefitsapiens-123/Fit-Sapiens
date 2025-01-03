@@ -9,6 +9,7 @@ import { uploadMedia } from "../firebase/cloudnary";
 function Profile() {
   const { user, status } = useAuth();
   const navigate = useNavigate();
+  const [uploading, setUploading] = useState(false);
 
   const [formData, setFormData] = useState({
     displayName: user?.displayName || "",
@@ -48,6 +49,7 @@ function Profile() {
       toast.error("File size should be less than 10MB");
       return;
     }
+    setUploading(true);
     try {
       const url = await uploadMedia(file);
       setFormData((prev) => ({ ...prev, photoURL: url }));
@@ -55,14 +57,21 @@ function Profile() {
     } catch (error) {
       console.error("Error uploading image: ", error);
       toast.error("Error uploading image");
+      setUploading(false);
+    } finally {
+      setUploading(false);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { displayName, phoneNumber, gender } = formData;
+    const { displayName, phoneNumber, gender, photoURL } = formData;
     if (!displayName || !phoneNumber || !gender) {
       toast.error("Please fill all required fields");
+      return;
+    }
+    if (!photoURL) {
+      toast.error("Profile Image is required");
       return;
     }
 
@@ -81,12 +90,12 @@ function Profile() {
       {/* Card Section */}
       <div className="w-full">
         {/* Card */}
-        <div className="bg-white rounded-xl shadow p-4 sm:p-7">
+        <div className="bg-neutral-900 rounded-xl shadow p-4 sm:p-7">
           <div className="mb-8">
-            <h2 className="text-2xl font-medium text-gray-800">
+            <h2 className="text-2xl font-medium text-neutral-100">
               Complete Your Profile
             </h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-100">
               Manage your name, password and account settings.
             </p>
           </div>
@@ -94,7 +103,7 @@ function Profile() {
             {/* Grid */}
             <div className="grid sm:grid-cols-12 gap-2 sm:gap-6">
               <div className="sm:col-span-3">
-                <label className="inline-block text-gray-800 mt-2.5">
+                <label className="inline-block text-neutral-100 mt-2.5">
                   Profile photo
                 </label>
               </div>
@@ -102,7 +111,7 @@ function Profile() {
               <div className="sm:col-span-9">
                 <div className="flex items-center gap-5">
                   <img
-                    className="inline-block size-16 rounded-full ring-2 ring-white"
+                    className="inline-block size-16 rounded-full ring-2 ring-gray-700"
                     src={
                       formData.photoURL ||
                       "https://preline.co/assets/img/160x160/img1.jpg"
@@ -110,16 +119,25 @@ function Profile() {
                     alt="Avatar"
                   />
                   {!formData.photoURL && (
-                    <div className="flex gap-x-2">
+                    <div className="flex gap-x-2 items-center">
                       <div className="max-w-sm">
                         <input
                           type="file"
                           name="photoURL"
-                          className="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-100 file:border-0 file:me-4 file:py-3 file:px-4"
+                          className="block w-full border-2 border-neutral-700  shadow-sm rounded-lg text-sm focus:z-10 focus:border-primary-500 focus:ring-primary-500 file:bg-neutral-800 file:border-0 file:me-4 file:py-3 file:px-4 file:text-gray-100"
                           onChange={handleUpload}
                           accept="image/*"
                         />
                       </div>
+                      {uploading && (
+                        <div
+                          class="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-primary-700 rounded-full"
+                          role="status"
+                          aria-label="loading"
+                        >
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -128,7 +146,7 @@ function Profile() {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="af-account-full-name"
-                  className="inline-flex text-gray-800 mt-2.5 items-center"
+                  className="inline-flex text-neutral-100 mt-2.5 items-center"
                 >
                   Full name
                   <Star
@@ -148,7 +166,7 @@ function Profile() {
                     value={formData.displayName}
                     onChange={handleChange}
                     required
-                    autocomplete="off"
+                    autoComplete="off"
                   />
                   <input
                     type="text"
@@ -163,7 +181,7 @@ function Profile() {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="af-account-email"
-                  className="inline-block text-gray-800 mt-2.5"
+                  className="inline-block text-neutral-100 mt-2.5"
                 >
                   Email
                 </label>
@@ -182,7 +200,7 @@ function Profile() {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="af-account-phone"
-                  className="inline-flex text-gray-800 mt-2.5 items-center"
+                  className="inline-flex text-neutral-100 mt-2.5 items-center"
                 >
                   Phone
                   <Star
@@ -207,7 +225,7 @@ function Profile() {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="gender"
-                  className="inline-flex items-center text-gray-800 mt-2.5"
+                  className="inline-flex items-center text-neutral-100 mt-2.5"
                 >
                   Gender
                   <Star
@@ -221,7 +239,7 @@ function Profile() {
                 <div className="sm:flex">
                   <label
                     htmlFor="gender-male"
-                    className="flex items-center py-3 px-6 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg relative focus:z-10 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none"
+                    className="flex items-center py-3 px-6 w-full border border-gray-700 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg relative focus:z-10 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none"
                   >
                     <input
                       type="radio"
@@ -232,13 +250,13 @@ function Profile() {
                       checked={formData.gender === "male"}
                       onChange={handleChange}
                     />
-                    <span className="leading-none text-gray-500 ms-3">
+                    <span className="leading-none .text-neutral-50 ms-3">
                       Male
                     </span>
                   </label>
                   <label
                     htmlFor="gender-female"
-                    className="flex items-center py-3 px-6 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg relative focus:z-10 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none"
+                    className="flex items-center py-3 px-6 w-full border border-gray-700 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg relative focus:z-10 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none"
                   >
                     <input
                       type="radio"
@@ -249,11 +267,11 @@ function Profile() {
                       checked={formData.gender === "female"}
                       onChange={handleChange}
                     />
-                    <span className="text-gray-500 ms-3">Female</span>
+                    <span className=".text-neutral-50 ms-3">Female</span>
                   </label>
                   <label
                     htmlFor="gender-other"
-                    className="flex items-center py-3 px-6 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg relative focus:z-10 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none"
+                    className="flex items-center py-3 px-6 w-full border border-gray-700 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg relative focus:z-10 focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none"
                   >
                     <input
                       type="radio"
@@ -264,7 +282,7 @@ function Profile() {
                       checked={formData.gender === "others"}
                       onChange={handleChange}
                     />
-                    <span className="text-gray-500 ms-3">Other</span>
+                    <span className=".text-neutral-50 ms-3">Other</span>
                   </label>
                 </div>
               </div>

@@ -38,12 +38,6 @@ function Member() {
     async function getCurrentUser(id) {
       const data = await getUserDoc(id);
       setUserData(data);
-      console.log(data.status);
-      if (allowedStatus.includes(data?.status?.toUpperCase())) {
-        console.log("allow");
-      } else {
-        console.log("not allow");
-      }
       if (data?.healthInfo) {
         setFormData(data.healthInfo);
       }
@@ -53,36 +47,38 @@ function Member() {
 
   return (
     <>
-      <div className="grid grid-cols-[60%,40%] gap-4 ">
+      <div className="grid md:grid-cols-[60%,40%] gap-4">
         <div>
           <PreviewForm data={formData} width={1} />
         </div>
         {userData?.memberPDF ? (
-          <div className="h-full">
-            <div className="bg-white rounded-lg shadow p-6 w-full mb-6">
-              <h1 className="text-2xl font-semibold text-gray-800">
-                Member Details
-              </h1>
-              <div className="flex gap-2 justify-between">
-                <Link
-                  to={userData.memberPDF}
-                  target="_blank"
-                  className="py-3 px-5 inline-flex items-center justify-center leading-none gap-x-2 text-sm text-center font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 w-full"
-                >
-                  <Eye size={18} />
-                  Preview in new tab
-                </Link>
-                <button
-                  className="py-2 px-3 inline-flex items-center justify-center leading-none gap-x-2 text-sm text-center font-medium rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 w-full"
-                  onClick={handleDelete}
-                >
-                  <Trash2 size={18} />
-                  {loading ? "Deleting..." : "Delete File"}
-                </button>
+          <div className="h-full mt-5 relative">
+            <div className="md:sticky top-24 right-0 z-10">
+              <div className="bg-neutral-900 rounded-lg shadow p-6 w-full mb-6">
+                <h1 className="text-2xl font-semibold text-neutral-100">
+                  Member Details
+                </h1>
+                <div className="flex gap-2 justify-between">
+                  <Link
+                    to={userData.memberPDF}
+                    target="_blank"
+                    className="py-3 px-5 inline-flex items-center justify-center leading-none gap-x-2 text-sm text-center font-medium rounded-lg border border-gray-700 bg-neutral-900 text-neutral-100 shadow-sm hover:bg-neutral-800 w-full"
+                  >
+                    <Eye size={18} />
+                    Preview in new tab
+                  </Link>
+                  <button
+                    className="py-2 px-3 inline-flex items-center justify-center leading-none gap-x-2 text-sm text-center font-medium rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 w-full"
+                    onClick={handleDelete}
+                  >
+                    <Trash2 size={18} />
+                    {loading ? "Deleting..." : "Delete File"}
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className="bg-white rounded-lg shadow h-full overflow-hidden">
-              <embed src={userData.memberPDF} width="100%" height="100%" />
+              <div className="bg-neutral-900 rounded-lg shadow h-[500px] overflow-hidden">
+                <embed src={userData.memberPDF} width="100%" height="100%" />
+              </div>
             </div>
           </div>
         ) : allowedStatus.includes(userData?.status?.toUpperCase()) ? (
@@ -96,7 +92,7 @@ function Member() {
             </div>
           </>
         ) : (
-          <h1 className="text-2xl font-semibold text-gray-800 mt-2">
+          <h1 className="text-2xl font-semibold text-neutral-100 mt-2">
             Not allow for Complete Profile or Complete the form status member
           </h1>
         )}

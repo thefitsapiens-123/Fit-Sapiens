@@ -7,7 +7,7 @@ function UnComplete() {
   return (
     <>
       <div className="w-full flex items-center justify-center">
-        <div className="bg-white rounded-xl shadow p-4 sm:p-7 max-w-sm text-center">
+        <div className="bg-neutral-900 rounded-xl shadow p-4 sm:p-7 max-w-sm text-center">
           {/* Icon */}
           <span className="mb-4 inline-flex justify-center items-center size-[62px] rounded-full border-4 border-red-50 bg-red-100 text-red-500">
             <svg
@@ -22,10 +22,10 @@ function UnComplete() {
             </svg>
           </span>
           {/* End Icon */}
-          <h3 className="mb-2 text-2xl font-semibold text-gray-800">
+          <h3 className="mb-2 text-2xl font-semibold text-neutral-100">
             Complete Profile
           </h3>
-          <p className="text-gray-500">
+          <p className=".text-neutral-50">
             Please complete your profile or remaining deatils to filling this
             from
           </p>

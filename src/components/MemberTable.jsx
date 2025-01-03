@@ -4,6 +4,7 @@ import Status from "./Status";
 import { Link } from "react-router";
 import healthQustion from "../questions/questions";
 import { toast } from "react-toastify";
+import { totalQuestions } from "../questions/healthQuery";
 
 function MemberTable({
   serial,
@@ -48,7 +49,7 @@ function MemberTable({
     <>
       <tr>
         <td className="px-6 py-3">
-          <span className="text-sm text-gray-500">{serial}</span>
+          <span className="text-sm .text-neutral-50">{serial}</span>
         </td>
         <td className="px-6 py-3">
           <div className="flex items-center">
@@ -59,41 +60,43 @@ function MemberTable({
           </div>
         </td>
         <td className="px-6 py-3">
-          <span className="block font-medium text-gray-800">
+          <span className="block font-medium text-neutral-100">
             {name || "Uncomplete"}
           </span>
-          <span className="block text-sm text-gray-500">{email}</span>
+          <span className="block text-sm .text-neutral-50">{email}</span>
         </td>
         <td className="px-6 py-3">
           <Status status={status} />
         </td>
         <td className="px-6 py-3">
           <div className="flex items-center gap-x-3">
-            <span className="text-xs text-gray-500">
-              {progress || 0}/{healthQustion.length}
+            <span className="text-xs .text-neutral-50">
+              {progress || 0}/{totalQuestions}
             </span>
-            <div className="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <div className="flex w-full h-1.5 bg-gray-700 rounded-full overflow-hidden">
               <div
                 className="flex flex-col justify-center overflow-hidden bg-primary-600"
                 role="progressbar"
-                style={{ width: `${(progress / healthQustion.length) * 100}%` }}
+                style={{
+                  width: `${(progress / totalQuestions) * 100}%`,
+                }}
               />
             </div>
           </div>
         </td>
         <td className="px-6 py-3">
-          <span className="text-sm text-gray-500">{date}</span>
+          <span className="text-sm .text-neutral-50">{date}</span>
         </td>
         <td className="px-6 py-3 text-end">
           <div className="inline-flex items-center justify-center gap-2">
             <Link
               to={`/admin/member/${id}`}
-              className="transition-all hover:bg-gray-50 inline-flex w-10 h-10 rounded-full items-center justify-center text-gray-600 hover:text-gray-800"
+              className="transition-all hover:bg-neutral-800 inline-flex w-10 h-10 rounded-full items-center justify-center text-gray-100 hover:text-neutral-100"
             >
               <Eye size={20} />
             </Link>
             <button
-              className="transition-all hover:bg-primary-50 inline-flex w-10 h-10 rounded-full items-center justify-center text-gray-600 hover:text-gray-800"
+              className="transition-all hover:bg-primary-600 inline-flex w-10 h-10 rounded-full items-center justify-center text-gray-100 hover:text-neutral-100"
               onClick={handleDelete}
               disabled={loading ? true : false}
             >

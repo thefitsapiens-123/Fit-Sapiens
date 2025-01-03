@@ -9,9 +9,9 @@ function PreviewForm({ data, width = "2" }) {
           {formSections.map((section, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow p-6 transition-all duration-200 hover:shadow-md"
+              className="bg-neutral-900 rounded-xl shadow p-6 transition-all duration-200 hover:shadow-md"
             >
-              <h2 className="text-2xl font-medium mb-6 text-gray-800 border-b pb-3 border-primary-400">
+              <h2 className="text-2xl font-medium mb-6 text-neutral-100 border-b border-gray-700 pb-3 border-primary-400">
                 {section.title}
               </h2>
               <div className="grid gap-6">
@@ -19,12 +19,12 @@ function PreviewForm({ data, width = "2" }) {
                   section.fields.map((field, fieldIndex) => (
                     <div
                       key={fieldIndex}
-                      className="border-b pb-4 last:border-0"
+                      className="border-b border-gray-700 pb-4 last:border-0"
                     >
-                      <p className="font-medium text-gray-700 mb-1 text-sm">
+                      <p className="font-medium text-gray-100 mb-1 text-sm">
                         {field.label}
                       </p>
-                      <p className="text-gray-600">
+                      <p className="text-gray-100">
                         {Array.isArray(data[field.name])
                           ? data[field.name].join(", ") || (
                               <span className="text-primary-600">
@@ -40,7 +40,7 @@ function PreviewForm({ data, width = "2" }) {
                     </div>
                   ))
                 ) : (
-                  <p className="text-gray-600">No health infomation found!</p>
+                  <p className="text-gray-100">No health infomation found!</p>
                 )}
               </div>
             </div>

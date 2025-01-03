@@ -82,11 +82,11 @@ function Home() {
           <div className="w-full md:w-1/2 lg:w-1/3 flex items-center">
             <form
               onSubmit={handleSubmit}
-              className="space-y-4 px-7 py-10 rounded-lg w-full bg-white"
+              className="space-y-4 px-7 py-10 rounded-lg w-full bg-neutral-900"
             >
               <div className="logo flex items-center justify-center">
                 <img
-                  src="/assets/main-logo.png"
+                  src="/assets/white-logo.png"
                   alt="Fit Sapiens"
                   className="max-w-[50%]"
                 />
@@ -94,7 +94,7 @@ function Home() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-600"
+                  className="block text-sm font-medium text-gray-100"
                 >
                   Email Address
                 </label>
@@ -111,7 +111,7 @@ function Home() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-gray-600"
+                  className="block text-sm font-medium text-gray-100"
                 >
                   Password
                 </label>

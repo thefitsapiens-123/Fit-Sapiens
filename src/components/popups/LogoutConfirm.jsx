@@ -26,11 +26,11 @@ function LogoutPop() {
       <>
         <div className="size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto flex items-center justify-center bg-slate-950 backdrop-blur-sm bg-opacity-60">
           <div className="mt-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-            <div className="relative flex flex-col bg-white shadow-lg rounded-xl">
+            <div className="relative flex flex-col bg-neutral-900 shadow-lg rounded-xl">
               <div className="absolute top-2 end-2">
                 <button
                   type="button"
-                  className="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
+                  className="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-800 text-neutral-100 hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
                   onClick={() => setIsActive(!isActive)}
                 >
                   <span className="sr-only">Close</span>
@@ -68,11 +68,11 @@ function LogoutPop() {
                 {/* End Icon */}
                 <h3
                   id="hs-danger-alert-label"
-                  className="mb-2 text-2xl font-bold text-gray-800"
+                  className="mb-2 text-2xl font-bold text-neutral-100"
                 >
                   Sign out
                 </h3>
-                <p className="text-gray-500 my-2">
+                <p className=".text-neutral-50 my-2">
                   Are you sure you would like to sign out of <br />
                   your Fit Sapiens account?
                 </p>
@@ -96,7 +96,7 @@ function LogoutPop() {
                   </button>
                   <button
                     type="button"
-                    className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-50"
+                    className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-700 bg-neutral-900 text-neutral-100 shadow-sm hover:bg-neutral-800 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-neutral-800"
                     onClick={() => setIsActive(!isActive)}
                   >
                     Cancel

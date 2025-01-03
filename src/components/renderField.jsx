@@ -2,7 +2,7 @@ const renderField = (field, setFormData, formData) => {
   const handleChange = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  const inputBaseClass = "w-full p-3 border border-gray-300 rounded-lg";
+  const inputBaseClass = "w-full p-3 border-2 border-gray-700 rounded-lg";
 
   switch (field.type) {
     case "text":
@@ -40,13 +40,13 @@ const renderField = (field, setFormData, formData) => {
           {field.options.map((option) => (
             <label
               key={option}
-              className="flex items-center space-x-3 text-gray-700 hover:text-gray-900 cursor-pointer"
+              className="flex items-center space-x-3 text-gray-100 hover:text-white cursor-pointer"
             >
               <input
                 type="checkbox"
                 value={option}
                 checked={formData[field.name]?.includes(option) || false}
-                className="w-4 h-4 text-primary-500 border-gray-300 rounded focus:ring-primary-400 transition-all"
+                className="w-4 h-4 text-primary-500 border-gray-700 rounded focus:ring-primary-400 transition-all"
                 onChange={(e) => {
                   const currentValues = formData[field.name] || [];
                   const newValues = e.target.checked
@@ -66,14 +66,14 @@ const renderField = (field, setFormData, formData) => {
           {field.options.map((option) => (
             <label
               key={option}
-              className="flex items-center space-x-3 text-gray-700 hover:text-gray-900 cursor-pointer"
+              className="flex items-center space-x-3 text-gray-100 hover:text-white cursor-pointer"
             >
               <input
                 type="radio"
                 name={field.name}
                 value={option}
                 required={field.required}
-                className="w-4 h-4 text-primary-500 border-gray-300 focus:ring-primary-400"
+                className="w-4 h-4 text-primary-500 border-gray-700 focus:ring-primary-400"
                 onChange={(e) => handleChange(field.name, e.target.value)}
               />
               <span className="select-none">{option}</span>

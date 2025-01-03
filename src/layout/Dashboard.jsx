@@ -49,7 +49,7 @@ function DashboardLayout() {
   return (
     <>
       {/* ========== HEADER ========== */}
-      <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 md:ps-[260px]">
+      <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-[48] w-full bg-neutral-900 border-b border-gray-700 text-sm py-2.5 md:ps-[260px]">
         <nav className="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
           <div className="flex grow items-center justify-between ms-auto md:justify-between gap-x-1 md:gap-x-3">
             <div className="flex flex-row items-center gap-1">
@@ -64,7 +64,7 @@ function DashboardLayout() {
                 />
 
                 <div className="grow">
-                  <h6 className="block font-medium text-gray-800 mb-0">
+                  <h6 className="block font-medium text-neutral-100 mb-0">
                     {role === "ADMIN"
                       ? "Admin"
                       : user.displayName || "Update Profile"}
@@ -76,7 +76,7 @@ function DashboardLayout() {
               <div className="md:hidden">
                 <button
                   type="button"
-                  className="ml-3 size-8 flex justify-center items-center gap-x-2   bg-primary-500 text-white rounded-lg"
+                  className="ml-3 size-8 flex justify-center items-center gap-x-2   bg-primary-600 text-white rounded-lg"
                   aria-haspopup="dialog"
                   aria-expanded="false"
                   aria-controls="hs-application-sidebar"
@@ -96,12 +96,12 @@ function DashboardLayout() {
       {/* ========== MAIN CONTENT ========== */}
       <div className="-mt-px hidden">
         {/* Breadcrumb */}
-        <div className="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 lg:px-8 lg:hidden md:ps-64">
+        <div className="sticky top-0 inset-x-0 z-20 bg-neutral-900 border-y px-4 sm:px-6 lg:px-8 lg:hidden md:ps-64">
           <div className="flex items-center py-2 md:pl-6">
             {/* Navigation Toggle */}
             <button
               type="button"
-              className="size-8 flex justify-center items-center gap-x-2 border border-gray-200 text-gray-800 hover:text-gray-500 rounded-lg focus:outline-none focus:text-gray-500 disabled:opacity-50 disabled:pointer-events-none"
+              className="size-8 flex justify-center items-center gap-x-2 border border-gray-700 text-neutral-100 hover:.text-neutral-50 rounded-lg focus:outline-none focus:.text-neutral-50 disabled:opacity-50 disabled:pointer-events-none"
               aria-haspopup="dialog"
               aria-expanded="false"
               aria-controls="hs-application-sidebar"
@@ -114,7 +114,7 @@ function DashboardLayout() {
             {/* End Navigation Toggle */}
             {/* Breadcrumb */}
             <ol className="ms-3 flex items-center whitespace-nowrap">
-              <li className="flex items-center text-sm text-gray-800">
+              <li className="flex items-center text-sm text-neutral-100">
                 Fit Sapiens
                 <svg
                   className="shrink-0 mx-3 overflow-visible size-2.5 text-gray-400"
@@ -145,7 +145,7 @@ function DashboardLayout() {
       {/* Sidebar */}
       <div
         id="hs-application-sidebar"
-        className="hs-overlay  [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all uration-300 transform w-[260px] h-full hidden fixed inset-y-0 start-0 z-[60] bg-white border-e border-gray-200 md:block md:translate-x-0 md:end-auto md:bottom-0"
+        className="hs-overlay  [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all uration-300 transform w-[260px] h-full hidden fixed inset-y-0 start-0 z-[60] bg-neutral-900 border-e border-gray-700 md:block md:translate-x-0 md:end-auto md:bottom-0"
         role="dialog"
         tabIndex={-1}
         aria-label="Sidebar"
@@ -158,12 +158,12 @@ function DashboardLayout() {
               to="/"
               aria-label="Preline"
             >
-              <img src="/assets/main-logo.png" alt="Brand Logo" />
+              <img src="/assets/white-logo.png" alt="Brand Logo" />
             </Link>
             {/* End Logo */}
           </div>
           {/* Content */}
-          <div className="h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
+          <div className="h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-800 [&::-webkit-scrollbar-thumb]:bg-gray-300">
             <nav
               className="hs-accordion-group w-full flex flex-col flex-wrap"
               data-hs-accordion-always-open=""
@@ -174,7 +174,7 @@ function DashboardLayout() {
                     return (
                       <li key={index}>
                         <NavLink
-                          className="nav-item flex items-center gap-x-3.5 py-4 px-8 hover:bg-primary-50 hover:text-primary-700 hover:border-r-4 hover:border-r-primary-700 transition-all"
+                          className="nav-item flex items-center gap-x-3.5 py-4 px-8 transition-all"
                           to={menu.path}
                         >
                           {menu.icon}
@@ -185,7 +185,7 @@ function DashboardLayout() {
                   }
                 })}
                 <button
-                  className="nav-item flex items-center gap-x-3.5 py-4 px-8 hover:bg-primary-50 hover:text-primary-700 hover:border-r-4 hover:border-r-primary-700 transition-all"
+                  className="nav-item flex items-center gap-x-3.5 py-4 px-8 transition-all"
                   onClick={() => setIsActive(!isActive)}
                 >
                   <CircleArrowOutUpLeft size={18} />

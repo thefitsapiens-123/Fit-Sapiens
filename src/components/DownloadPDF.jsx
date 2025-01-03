@@ -36,7 +36,7 @@ function DownloadPDF() {
   };
 
   return (
-    <div className="w-full flex gap-4">
+    <div className="w-full grid md:grid-cols-[60%,40%] gap-4">
       <div className="h-full w-full">
         <object
           className="pdf"
@@ -46,19 +46,19 @@ function DownloadPDF() {
           type="application/pdf"
         ></object>
       </div>
-      <div className="bg-white rounded-xl shadow p-4 sm:p-7 max-w-sm text-center h-max">
+      <div className="bg-neutral-900 rounded-xl shadow p-4 sm:p-7 text-center h-max">
         {/* Icon */}
-        <span className="mb-4 inline-flex justify-center items-center size-[62px] rounded-full border-4 border-green-50 bg-green-100 text-green-500">
+        <span className="mb-4 inline-flex justify-center items-center size-[62px] rounded-full border-4 border-green-800 bg-green-800 text-gray-100">
           <FileCheck />
         </span>
         {/* End Icon */}
         <h3
           id="hs-sign-out-alert-label"
-          className="mb-2 text-2xl font-semibold text-gray-800"
+          className="mb-2 text-2xl font-semibold text-neutral-100"
         >
           {pdfUrl ? "Your PDF is Ready" : "Complete Your Profile"}
         </h3>
-        <p className="text-gray-500">
+        <p className=".text-neutral-50">
           {pdfUrl
             ? "You can download or preview your PDF below."
             : "Please complete your profile to enable PDF access."}
@@ -70,14 +70,14 @@ function DownloadPDF() {
                 to={pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300 bg-gray-50 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300 bg-neutral-800 text-gray-100 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-200"
               >
                 <Eye />
                 Preview
               </Link>
               <button
                 onClick={handleDownload}
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-green-800 text-white"
               >
                 <Download />
                 Download

@@ -60,9 +60,9 @@ function MembersList() {
       <div className="flex flex-col">
         <div className="-m-1.5 overflow-x-auto">
           <div className="p-1.5 min-w-full inline-block align-middle">
-            <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+            <div className="bg-neutral-900 border border-gray-700 rounded-xl shadow-sm overflow-hidden">
               {/* Header */}
-              <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
+              <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-700 border-gray-700">
                 <div className="relative">
                   <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
                     <svg
@@ -143,47 +143,47 @@ function MembersList() {
               </div>
               {/* End Header */}
               {/* Table */}
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-gray-700">
+                <thead className="bg-neutral-800">
                   <tr>
                     <th scope="col" className="w-[5%] px-6 py-3 text-start">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-neutral-100">
                         No.
                       </span>
                     </th>
                     <th scope="col" className="w-[8%] px-6 py-3 text-start">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-neutral-100">
                         Picture
                       </span>
                     </th>
                     <th scope="col" className="w-[20%] px-6 py-3 text-start">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-neutral-100">
                         Name
                       </span>
                     </th>
                     <th scope="col" className="w-[25%] px-6 py-3 text-start">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-neutral-100">
                         Status
                       </span>
                     </th>
                     <th scope="col" className="w-[20%] px-6 py-3 text-start">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-neutral-100">
                         Completed Fields
                       </span>
                     </th>
                     <th scope="col" className="w-[15%] px-6 py-3 text-start">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-neutral-100">
                         Created
                       </span>
                     </th>
                     <th scope="col" className="w-[10%] px-6 py-3 text-end">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-neutral-100">
                         Actions
                       </span>
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-700">
                   {loading
                     ? Array(10)
                         .fill()
@@ -221,10 +221,10 @@ function MembersList() {
               </table>
               {/* End Table */}
               {/* Footer */}
-              <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200">
+              <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-700">
                 <div>
-                  <p className="text-sm text-gray-600">
-                    <span className="font-semibold text-gray-800">
+                  <p className="text-sm text-gray-100">
+                    <span className="font-semibold text-neutral-100">
                       {filteredUsers.length}
                     </span>{" "}
                     results
@@ -234,7 +234,7 @@ function MembersList() {
                   <div className="inline-flex gap-x-2">
                     <button
                       type="button"
-                      className="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-50"
+                      className="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-700 bg-neutral-900 text-neutral-100 shadow-sm hover:bg-neutral-800 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-neutral-800"
                     >
                       <svg
                         className="shrink-0 size-4"
@@ -254,7 +254,7 @@ function MembersList() {
                     </button>
                     <button
                       type="button"
-                      className="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-50"
+                      className="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-700 bg-neutral-900 text-neutral-100 shadow-sm hover:bg-neutral-800 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-neutral-800"
                     >
                       Next
                       <svg

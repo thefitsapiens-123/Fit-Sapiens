@@ -121,12 +121,12 @@ function CreateAdmin() {
       {/* Card Section */}
       <div className="w-full">
         {/* Card */}
-        <div className="bg-white rounded-xl shadow p-4 sm:p-7">
+        <div className="bg-neutral-900 rounded-xl shadow p-4 sm:p-7">
           <div className="mb-8">
-            <h2 className="text-2xl font-medium text-gray-800">
+            <h2 className="text-2xl font-medium text-neutral-100">
               Create Member/Admin
             </h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-100">
               Create member with same email and password that he provide in
               wordpress
             </p>
@@ -137,7 +137,7 @@ function CreateAdmin() {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="af-account-email"
-                  className="inline-block  text-gray-800 mt-2.5"
+                  className="inline-block  text-neutral-100 mt-2.5"
                 >
                   Email
                 </label>
@@ -157,7 +157,7 @@ function CreateAdmin() {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="af-account-password"
-                  className="inline-block  text-gray-800 mt-2.5"
+                  className="inline-block  text-neutral-100 mt-2.5"
                 >
                   Password
                 </label>
@@ -177,7 +177,7 @@ function CreateAdmin() {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="af-account-role"
-                  className="inline-block  text-gray-800 mt-2.5"
+                  className="inline-block  text-neutral-100 mt-2.5"
                 >
                   Role
                 </label>

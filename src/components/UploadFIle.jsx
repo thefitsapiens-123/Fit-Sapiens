@@ -84,18 +84,18 @@ function UploadFIle({ email, id, displayName }) {
         {!uploadedFile ? (
           <div
             {...getRootProps()}
-            className="cursor-pointer p-12 flex justify-center bg-white border border-dashed border-gray-300 rounded-xl"
+            className="cursor-pointer p-12 flex justify-center bg-neutral-900 border border-dashed border-gray-300 rounded-xl"
           >
             <input {...getInputProps()} />
             <div className="text-center">
-              <span className="inline-flex justify-center items-center size-16 bg-gray-100 text-gray-800 rounded-full">
+              <span className="inline-flex justify-center items-center size-16 bg-gray-800 text-neutral-100 rounded-full">
                 <Upload />
               </span>
-              <div className="mt-4 flex flex-wrap justify-center text-sm leading-6 text-gray-600">
-                <span className="pe-1 font-medium text-gray-800">
+              <div className="mt-4 flex flex-wrap justify-center text-sm leading-6 text-gray-100">
+                <span className="pe-1 font-medium text-neutral-100">
                   Drop your file here or
                 </span>
-                <span className="bg-white font-semibold text-primary-600 hover:text-primary-700 rounded-lg decoration-2 hover:underline focus-within:outline-none focus-within:ring-2 focus-within:ring-primary-600 focus-within:ring-offset-2">
+                <span className="bg-neutral-900 font-semibold text-primary-600 hover:text-primary-700 rounded-lg decoration-2 hover:underline focus-within:outline-none focus-within:ring-2 focus-within:ring-primary-600 focus-within:ring-offset-2">
                   browse
                 </span>
               </div>
@@ -105,26 +105,26 @@ function UploadFIle({ email, id, displayName }) {
             </div>
           </div>
         ) : (
-          <div className="p-3 bg-white border border-solid border-gray-300 rounded-xl">
+          <div className="p-3 bg-neutral-900 border border-solid border-gray-300 rounded-xl">
             <div className="mb-1 flex justify-between items-center">
               <div className="flex items-center gap-x-3">
-                <span className="size-10 flex justify-center items-center border border-gray-200 text-gray-500 rounded-lg">
+                <span className="size-10 flex justify-center items-center border border-gray-700 .text-neutral-50 rounded-lg">
                   <File />
                 </span>
                 <div>
-                  <p className="text-sm font-light text-gray-800">
+                  <p className="text-sm font-light text-neutral-100">
                     <span className="truncate inline-block max-w-[200px] align-bottom">
                       {uploadedFile.file.name}
                     </span>
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs .text-neutral-50">
                     {(uploadedFile.file.size / 1024).toFixed(2)} KB
                   </p>
                 </div>
               </div>
               <button
                 type="button"
-                className="text-gray-500 hover:text-gray-800 focus:outline-none"
+                className=".text-neutral-50 hover:text-neutral-100 focus:outline-none"
                 onClick={handleRemoveFile}
               >
                 <Trash2 size={20} />
@@ -132,14 +132,14 @@ function UploadFIle({ email, id, displayName }) {
             </div>
             <div className="mt-3">
               <div className="flex items-center gap-x-3 whitespace-nowrap">
-                <div className="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div className="flex w-full h-2 bg-gray-700 rounded-full overflow-hidden">
                   <div
                     className="h-2 bg-green-600 rounded-full"
                     style={{ width: `${uploadProgress}%` }}
                   />
                 </div>
                 <div className="w-10 text-end">
-                  <span className="text-sm text-gray-800">
+                  <span className="text-sm text-neutral-100">
                     {uploadProgress}%
                   </span>
                 </div>
@@ -148,14 +148,14 @@ function UploadFIle({ email, id, displayName }) {
           </div>
         )}
         {uploadedFile?.url && (
-          <div className="bg-white rounded-xl shadow p-4 sm:p-7 max-w-sm text-center mx-auto mt-3">
+          <div className="bg-neutral-900 rounded-xl shadow p-4 sm:p-7 max-w-sm text-center mx-auto mt-3">
             <span className="mb-4 inline-flex justify-center items-center size-[62px] rounded-full border-4 border-red-50 bg-red-100 text-red-500">
               <MailCheck />
             </span>
-            <h3 className="mb-2 text-2xl font-semibold text-gray-800">
+            <h3 className="mb-2 text-2xl font-semibold text-neutral-100">
               Confirmation Mail
             </h3>
-            <p className="text-gray-500">
+            <p className=".text-neutral-50">
               To let the user know that their status has changed to download,
               send them a confirmation email.
             </p>

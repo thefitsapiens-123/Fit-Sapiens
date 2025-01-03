@@ -37,10 +37,10 @@ function HealthForm() {
         <div className="rounded-xl p-4 sm:p-7">
           <form onSubmit={handleSubmit}>
             <div className="text-center mb-12">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-3xl font-bold text-white mb-2">
                 Fitness Questionnaire
               </h1>
-              <p className="text-gray-600">
+              <p className="text-gray-100">
                 Please fill out the form below to help us understand your
                 fitness goals
               </p>
@@ -50,9 +50,9 @@ function HealthForm() {
               {formSections.map((section, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-xl shadow p-6 transition-all duration-200 hover:shadow-lg"
+                  className="bg-neutral-900 rounded-xl shadow p-6 transition-all duration-200 hover:shadow-lg"
                 >
-                  <h2 className="text-xl font-medium mb-4 md:mb-6 text-gray-800 border-b pb-2 md:pb-3">
+                  <h2 className="text-xl font-medium mb-4 md:mb-6 text-neutral-100 border-b border-gray-700 pb-2 md:pb-3">
                     {section.title}
                   </h2>
                   <div className="flex flex-wrap gap-y-5">
@@ -61,7 +61,7 @@ function HealthForm() {
                         key={fieldIndex}
                         className={field.width === "full" ? "w-full" : "w-full"}
                       >
-                        <label className="block mb-1 font-medium text-gray-700 text-sm">
+                        <label className="block mb-1 font-medium text-gray-100 text-sm">
                           {`(${fieldIndex + 1})${field.label}`}
                           {field.required && (
                             <span className="text-red-500 ml-1">*</span>
