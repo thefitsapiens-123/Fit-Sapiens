@@ -4,12 +4,19 @@ import { File, Forward, MailCheck, Trash2, Upload } from "lucide-react";
 import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
 import { doc, updateDoc } from "firebase/firestore";
-import { dataBase } from "../firebase/firebaseConfig"; // Add this import
+import { dataBase } from "../firebase/firebaseConfig";
 import { uploadMedia } from "../firebase/cloudnary";
 
 function UploadFIle({ email, id, displayName }) {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
+
+  //Email js Config
+  const emailJsConfig = {
+    service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    template_id: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+    userId: import.meta.env.VITE_EMAILJS_USER_ID,
+  };
 
   const onDrop = useCallback(async (acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -39,10 +46,10 @@ function UploadFIle({ email, id, displayName }) {
 
     try {
       await emailjs.sendForm(
-        "service_cxg5w7f",
-        "template_1mn4sng",
+        emailJsConfig.service_id,
+        emailJsConfig.template_id,
         e.target,
-        "AwxMEDTaCcNQPzel4"
+        emailJsConfig.userId
       );
       toast.success("Email sent successfully!");
     } catch (error) {

@@ -8,12 +8,14 @@ import { toast } from "react-toastify";
 import { doc, updateDoc } from "firebase/firestore";
 import { dataBase } from "../firebase/firebaseConfig";
 import PreviewForm from "../components/PreviewForm";
+import MediaGallery from "../components/MediaGallery";
 
 function Member() {
   const { id } = useParams();
   const [userData, setUserData] = useState(null);
   const [formData, setFormData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState([]);
   const allowedStatus = ["PENDING", "DOWNLOAD"];
 
   const handleDelete = useCallback(async () => {
@@ -40,6 +42,9 @@ function Member() {
       setUserData(data);
       if (data?.healthInfo) {
         setFormData(data.healthInfo);
+      }
+      if (data?.transformationImages) {
+        setImages(data.transformationImages);
       }
     }
     getCurrentUser(id);
@@ -76,7 +81,7 @@ function Member() {
                   </button>
                 </div>
               </div>
-              <div className="bg-neutral-900 rounded-lg shadow h-[500px] overflow-hidden">
+              <div className="bg-neutral-900 rounded-lg shadow h-[450px] overflow-hidden">
                 <embed src={userData.memberPDF} width="100%" height="100%" />
               </div>
             </div>
@@ -96,6 +101,9 @@ function Member() {
             Not allow for Complete Profile or Complete the form status member
           </h1>
         )}
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 mt-8 bg-neutral-900 rounded-xl shadow p-4 sm:p-7 gap-6">
+        <MediaGallery images={images} />
       </div>
     </>
   );

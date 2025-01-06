@@ -17,21 +17,24 @@ function Filter({ statuses, onFilter, onReset }) {
           Filter
         </button>
         <div
-          className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-700 min-w-48 z-20 bg-neutral-900 shadow-md rounded-lg mt-2"
+          className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-700 min-w-48 z-20 bg-neutral-900 shadow-md rounded-lg mt-2 overflow-hidden border-gray-700 border"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="hs-as-table-table-filter-dropdown"
         >
           <div className="divide-y divide-gray-700">
-            {statuses.map((status, index) => (
-              <button
-                key={index}
-                className="flex py-2.5 px-3 w-full text-left"
-                onClick={() => onFilter(status)}
-              >
-                <span className="text-sm text-neutral-100">{status}</span>
-              </button>
-            ))}
+            {statuses.map((status, index) => {
+              if (status === "" || status == undefined) return;
+              return (
+                <button
+                  key={index}
+                  className="flex py-2.5 px-3 w-full text-left"
+                  onClick={() => onFilter(status)}
+                >
+                  <span className="text-sm text-neutral-100">{status}</span>
+                </button>
+              );
+            })}
             <button
               className="flex py-2.5 px-3 w-full text-left bg-primary-600 "
               onClick={onReset}

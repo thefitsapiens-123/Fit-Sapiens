@@ -62,7 +62,7 @@ function MembersList() {
           <div className="p-1.5 min-w-full inline-block align-middle">
             <div className="bg-neutral-900 border border-gray-700 rounded-xl shadow-sm overflow-hidden">
               {/* Header */}
-              <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-700 border-gray-700">
+              <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-700">
                 <div className="relative">
                   <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
                     <svg
