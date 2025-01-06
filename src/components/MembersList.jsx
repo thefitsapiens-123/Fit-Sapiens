@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import MemberTable from "./MemberTable";
-import { ListFilter, Plus } from "lucide-react";
+import { ListFilter, Plus, RotateCcw } from "lucide-react";
 import { Link } from "react-router";
 import Filter from "./Filter";
 import { use } from "react";
@@ -13,6 +13,7 @@ function MembersList() {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [statuses, setStatuses] = useState([]);
+  const [reset, setReset] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -33,10 +34,12 @@ function MembersList() {
   const handleFilter = (status) => {
     const filtered = users.filter((user) => user.status === status);
     setFilteredUsers(filtered);
+    setReset(true);
   };
 
   const handleReset = () => {
     setFilteredUsers(users);
+    setReset(false);
   };
 
   const handleSearch = useCallback(
@@ -62,7 +65,7 @@ function MembersList() {
           <div className="p-1.5 min-w-full inline-block align-middle">
             <div className="bg-neutral-900 border border-gray-700 rounded-xl shadow-sm overflow-hidden">
               {/* Header */}
-              <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-700">
+              <div className="px-6 py-4 flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 border-b border-gray-700">
                 <div className="relative">
                   <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
                     <svg
@@ -123,16 +126,21 @@ function MembersList() {
                     <span className="text-xs">/</span>
                   </div>
                 </div>
-                <div>
-                  <div className="inline-flex gap-x-2">
-                    <Filter
-                      statuses={statuses}
-                      onFilter={handleFilter}
-                      onReset={handleReset}
-                    />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 justify-end">
+                    {reset && (
+                      <button
+                        className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700"
+                        onClick={handleReset}
+                      >
+                        <RotateCcw size={20} />
+                        <span className="text-sm text-white">Reset</span>
+                      </button>
+                    )}
+                    <Filter statuses={statuses} onFilter={handleFilter} />
 
                     <Link
-                      className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700 focus:outline-none focus:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none"
+                      className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-primary-600 text-white hover:bg-primary-700"
                       to="/admin/create-member"
                     >
                       <Plus size={20} />

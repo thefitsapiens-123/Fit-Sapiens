@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Send } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
 import { auth, dataBase } from "../firebase/firebaseConfig";
@@ -30,6 +30,19 @@ function HealthForm() {
       toast.error("Error submitting health information");
     }
   };
+
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      if (formData) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [formData]);
 
   return (
     <>

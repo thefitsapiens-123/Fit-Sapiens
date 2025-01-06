@@ -1,7 +1,7 @@
 import { FilterIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
-function Filter({ statuses, onFilter, onReset }) {
+function Filter({ statuses, onFilter }) {
   return (
     <>
       <div className="hs-dropdown [--placement:bottom-right] relative inline-block">
@@ -35,12 +35,6 @@ function Filter({ statuses, onFilter, onReset }) {
                 </button>
               );
             })}
-            <button
-              className="flex py-2.5 px-3 w-full text-left bg-primary-600 "
-              onClick={onReset}
-            >
-              <span className="text-sm text-white">Reset</span>
-            </button>
           </div>
         </div>
       </div>

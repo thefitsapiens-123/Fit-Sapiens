@@ -17,9 +17,10 @@ function MemberTable({
   image,
 }) {
   const [loading, setLoading] = useState(false);
+  const baseUrl = `https://firebase-admin-sdk-bw3w.onrender.com/api/users/${id}`;
+
   const handleDelete = async () => {
     setLoading(true);
-    const baseUrl = `https://firebase-admin-sdk-bw3w.onrender.com/api/users/${id}`;
     const confirmDelete = window.confirm(
       `Are you sure you want to delete the member?`
     );
@@ -54,8 +55,9 @@ function MemberTable({
         <td className="px-6 py-3">
           <div className="flex items-center">
             <img
-              className="inline-block size-[38px] rounded-full"
-              src={image || "https://avatar.iran.liara.run/public"}
+              className="inline-block rounded-full"
+              src={`${image}` || "https://avatar.iran.liara.run/public"}
+              style={{ maxWidth: "50px", height: "50px" }}
             />
           </div>
         </td>
@@ -96,7 +98,7 @@ function MemberTable({
               <Eye size={20} />
             </Link>
             <button
-              className="transition-all hover:bg-primary-600 inline-flex w-10 h-10 rounded-full items-center justify-center text-gray-100 hover:text-neutral-100"
+              className="transition-all hover:bg-primary-600 hover:text-white inline-flex w-10 h-10 rounded-full items-center justify-center text-primary-600"
               onClick={handleDelete}
               disabled={loading ? true : false}
             >
@@ -106,10 +108,10 @@ function MemberTable({
                   role="status"
                   aria-label="loading"
                 >
-                  <span class="sr-only">Loading...</span>
+                  <span className="sr-only">Loading...</span>
                 </div>
               ) : (
-                <Trash2 size={20} color="#b91c1c" />
+                <Trash2 size={20} />
               )}
             </button>
           </div>
