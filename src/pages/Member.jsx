@@ -103,7 +103,13 @@ function Member() {
         )}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 mt-8 bg-neutral-900 rounded-xl shadow p-4 sm:p-7 gap-6">
-        <MediaGallery images={images} />
+        {images.length > 0 ? (
+          <MediaGallery images={images} />
+        ) : (
+          <h1 className="text-2xl font-semibold text-neutral-100 mt-2">
+            No Pictures Fond!
+          </h1>
+        )}
       </div>
     </>
   );

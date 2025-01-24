@@ -84,7 +84,7 @@ function LogoutPop() {
                   >
                     {loading ? (
                       <div
-                        className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-white rounded-full"
+                        className="animate-spin inline-block size-5 border-[3px] border-current border-t-transparent text-white rounded-full"
                         role="status"
                         aria-label="loading"
                       >

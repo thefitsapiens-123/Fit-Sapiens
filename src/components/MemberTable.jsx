@@ -56,8 +56,8 @@ function MemberTable({
           <div className="flex items-center">
             <img
               className="inline-block rounded-full"
-              src={`${image}` || "https://avatar.iran.liara.run/public"}
-              style={{ maxWidth: "50px", height: "50px" }}
+              src={image || "https://avatar.iran.liara.run/public"}
+              style={{ width: "50px", height: "50px", objectFit: "cover" }}
             />
           </div>
         </td>

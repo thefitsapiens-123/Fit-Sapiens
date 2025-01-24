@@ -62,6 +62,7 @@ function UploadFIle({ email, id, displayName }) {
         status: "DOWNLOAD",
       });
       toast.success("User status updated successfully!");
+      window.location.href = "/";
     } catch (error) {
       toast.error("Failed to update user data!");
     }
