@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import { doc, updateDoc } from "firebase/firestore";
 import { dataBase } from "../firebase/firebaseConfig";
 import { uploadMedia } from "../firebase/cloudnary";
+import { useLocation, useNavigate } from "react-router";
 
 function UploadFIle({ email, id, displayName }) {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const navigate = useNavigate();
 
   //Email js Config
   const emailJsConfig = {
@@ -54,6 +56,7 @@ function UploadFIle({ email, id, displayName }) {
       toast.success("Email sent successfully!");
     } catch (error) {
       toast.error("Failed to send email!");
+      return false;
     }
     try {
       const userDocRef = doc(dataBase, "users", id);
@@ -61,8 +64,9 @@ function UploadFIle({ email, id, displayName }) {
         memberPDF: uploadedFile.url,
         status: "DOWNLOAD",
       });
+      // window.location.href = "/";
+      navigate("/");
       toast.success("User status updated successfully!");
-      window.location.href = "/";
     } catch (error) {
       toast.error("Failed to update user data!");
     }

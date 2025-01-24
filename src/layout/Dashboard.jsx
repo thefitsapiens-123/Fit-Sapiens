@@ -52,7 +52,7 @@ function DashboardLayout() {
       <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-[48] w-full bg-neutral-900 border-b border-gray-700 text-sm py-2.5 md:ps-[260px]">
         <nav className="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
           <div className="flex grow items-center justify-between ms-auto md:justify-between gap-x-1 md:gap-x-3">
-            <div className="flex flex-row items-center gap-1">
+            <div className="flex flex-row items-center gap-1 w-full justify-between">
               {/* Member Profile */}
               <div className="flex items-center gap-x-3">
                 <img
