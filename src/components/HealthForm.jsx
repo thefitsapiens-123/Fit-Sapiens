@@ -31,19 +31,6 @@ function HealthForm() {
     }
   };
 
-  useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      if (formData) {
-        e.preventDefault();
-        e.returnValue = "";
-      }
-    };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [formData]);
-
   return (
     <>
       <div className="w-full">
