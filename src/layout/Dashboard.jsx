@@ -57,9 +57,7 @@ function DashboardLayout() {
               <div className="flex items-center gap-x-3">
                 <img
                   className="inline-block size-[45px] rounded-full"
-                  src={
-                    user.photoURL || "https://avatar.iran.liara.run/public/1"
-                  }
+                  src={user.photoURL || "/assets/non-profile.svg"}
                   alt="Avatar"
                 />
 

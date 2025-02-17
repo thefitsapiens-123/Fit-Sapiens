@@ -21,8 +21,8 @@ function PreviewForm({ data, width = "2" }) {
                       key={fieldIndex}
                       className="border-b border-gray-700 pb-4 last:border-0"
                     >
-                      <p className="font-medium text-gray-100 mb-1 text-sm">
-                        {field.label}
+                      <p className="font-medium text-primary-600 mb-1 text-sm">
+                        {"Q."} {field.label}
                       </p>
                       <p className="text-gray-100">
                         {Array.isArray(data[field.name])
