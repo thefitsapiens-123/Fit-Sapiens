@@ -17,7 +17,7 @@ function MemberTable({
   image,
 }) {
   const [loading, setLoading] = useState(false);
-  const baseUrl = `https://firebase-admin-sdk-bw3w.onrender.com/api/users/${id}`;
+  const baseUrl = `https://firebase-admin-sdk-kzul.onrender.com/api/users/${id}`;
 
   const handleDelete = async () => {
     setLoading(true);
